@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/graphnet.css">
+    <title>Unauthorized access | PinNow 4 Events</title>
+  </head>
+
+  <body>
+    <div class="wrapper-outer">
+        <div style="margin-top: 100px; text-align:center;">
+            <div style="font-size: 80px; margin-bottom: 70px; font-weight: 500">
+                :(
+            </div>
+            <p>
+                You're not authorized to access this page.<br/>
+                <a href="./">Return to PinNow 4 Events</a>
+            </p>
+        </div>
+    </div>
+  </body>
+</html>
