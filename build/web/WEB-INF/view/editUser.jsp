@@ -1,203 +1,17 @@
-
-<%@ include file='WEB-INF/view/header.jspf' %>
-<c:set var="title" value="Login" scope="request"/>
-<c:set var="page" value="login" scope="request"/>
-
+<%@ include file='header.jspf' %>
+  
 <div class="top-content">
     <div class="inner-bg">   	
         <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2 text"><h2><strong>PinNow 4 Events</h2>
-                    <h2>Login &amp; Registration Form</h2></div>
+                    <h2>Edit User Settings</h2></div>
             </div>
-            <div class="row">
-                <div class="col-sm-5">
-                    <div class="form-box">
-                        <div class="form-top">
-                            <div class="form-top-left">
-                                <h3>Log in now</h3>
-                                <p>Enter username and password to log in:</p>
-                            </div>
-                            <div class="form-top-right">
-                                <i class="fa fa-key"></i>
-                            </div>
-                        </div>
-                        <div class="form-bottom">
-                            <form method="POST" action="./welcome" accept-charset="UTF-8" role="form" id="loginform" class="form-signin">
-                                <div class="form-group">
-                                    <br>
-                                    <br>
-                                    <label class="sr-only" for="form-email">Email</label>
-                                        <input type="text" name="email" placeholder="Email..." class="form-control" id="form-email">
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="form-password">Password</label>
-                                        <input type="password" name="password" placeholder="Password..." class="form-control" id="form-password">
-                                </div>
-                                <p style="margin-top:45px"><input class="btn btn-success btn-block" type="submit" value="Login"></p>
-                                
-                                <center><p style="font-size: smaller; margin-top: 20px"> Try with email/password combination: admin@pin.net/adminadmin </p></center>
-                            </form> 
-                        
-       
-        
-    <!-- Google sign in -->
-    <center><p style="margin-top:30px;">or</p></center>
-    <center><div id="googleLogin" class="g-signin2" data-width="400" data-height="38" data-longtitle="true"></div></center>
-    <p class="text-center" style="margin-top:3px;"></p>
-    <!--<center><div id="gSignInWrapper">
-        <div id="customBtn" class="customGPlusSignIn" onclick="signOut();">
-            <span class="icon"></span>
-                <span class="buttonText">Log out</span>
-        </div>
-    </div>   
-        <div id="name"></div></center>-->
-    
-    <!-- Facebook sign in -->
-    <center><p style="margin-top:30px;">or</p></center>
- 
-    <div class="fb-login-button" data-max-rows="1" data-size="large" width = "550" height="38" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>
-    
-    <!--<br/><a href="javascript:fbLogout()">Facebook log out (testing)</a>-->
-    
-  
-    
-</div>
-
-<!-- Google sign-in hooks -->
-<script>
-    var googleUser = {};
-    var startApp = function() {
-      gapi.load('auth2', function(){
-        // Retrieve the singleton for the GoogleAuth library and set up the client.
-        auth2 = gapi.auth2.init({
-          client_id: '331432826-ohvbivkvfi8t6gsblg0270kerse7m404.apps.googleusercontent.com',
-          cookiepolicy: 'single_host_origin'
-        });
-        attachSignin(document.getElementById('googleLogin'));
-      });
-    };
-
-    function attachSignin(element) {
-        console.log(element.id);
-        auth2.attachClickHandler(element, {},
-            function(googleUser) {
-                // document.getElementById('name').innerText = "Signedin:" +
-                //  googleUser.getBasicProfile().getName();
-                  console.log('Email' + googleUser.getBasicProfile().getEmail());
-                  post("./welcome", {
-                      "method": "google",
-                      "name"  : googleUser.getBasicProfile().getName(),
-                      "email" : googleUser.getBasicProfile().getEmail(), 
-                  });
-            }, function(error1) {
-              console.log(JSON.stringify(error1, undefined, 2));
-            });
-    }
-    
-    function signOut(){
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function (){
-            console.log('User signed out.');
-            document.getElementById('name').innerText = "";
-        });
-    }
-
-    $(document).ready(function(){
-        startApp();
-    });
-</script>
-
-<!-- FB sign-in hooks -->
-
-<script>
-    
-    // Called once we have the result of FB.getLoginStatus or FB.login
-    function fbLoginCallback(response) {
-        console.log('fbLoginCallback');
-        if (response.status === 'connected') {
-            console.log('login response: ' + JSON.stringify(response));
-            FB.api('/me', {fields: 'name,email'}, function(response) {
-                console.log('/me response: ' + JSON.stringify(response));
-                post("./welcome",{
-                    "method": "facebook",
-                    "name": response.name,
-                    "email": response.email
-                });
-            });
-        } else {
-            console.log("fbLoginCallback: user is not connected");
-        }
-    }
-
-    // Someone clicked login with facebook. First check if the user is 
-    // already logged in, if not open a prompt.
-    function checkFbStatus() {
-        FB.getLoginStatus(function(response) {
-            if (response.status === 'connected') {
-                console.log('checkFbStatus: already connected');
-                fbLoginCallback(response)
-            } else {
-                console.log('checkFbStatus: not yet connected, using FB.login()');
-                FB.login(fbLoginCallback, {scope: 'public_profile,email'});
-            }
-        });
-    }
-    
-    // Log out from facebook, purely for testing purposes.
-    function fbLogout() {
-        FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-            if (response.status === 'connected') {
-                console.log('fbLogout: connected, logging out..');
-                FB.logout();
-            } else {
-                console.log('fbLogout: already logged out');
-            }
-        });
-    }
-
-    // Load & initialize the facebook library, pass it our appId
-    
-    window.fbAsyncInit = function() {
-        FB.init({
-          appId  : '180085452780493',
-          cookie : true,  // enable cookies to allow server to access session
-          xfbml  : true,  // parse social plugins on this page
-          version: 'v2.12' // use graph api version 2.8
-        });
-    };
-
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-</script>
-<c:if test="${error1 != null}">
-    <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
-        ${error1}
-    </div>
-</c:if>
-                        </div>
-                    </div>
-                
-            
-    <div class="col-sm-1 middle-border"></div>
-        <div class="col-sm-1"></div>
-            <div class="col-sm-5">
+     <div class="row">       
+         <div class="col-sm-4"></div>
+            <div class="col-sm-4">
                 <div class="form-box">
-                    <div class="form-top">
-	                <div class="form-top-left">
-	                    <h3>Sign up now</h3>
-	                    <p>Fill in the form below to get instant access:</p>
-	                </div>
-	                <div class="form-top-right">
-	                    <i class="fa fa-pencil"></i>
-	                </div>
-	            </div>
+                    
 	            <div class="form-bottom">
                         <form method="POST" action="./register" accept-charset="UTF-8" role="form" id="registration-form" class="registration-form">
 
@@ -211,11 +25,11 @@
 				                        </div>
                                                         <div class="form-group">
 				                        	<label class="sr-only" for="form-username">Password</label>
-				                        	<input type="password" name="password" placeholder="Password (Mandatory)..." class="form-control" id="form-password">
+				                        	<input type="text" name="password" placeholder="Password (Mandatory)..." class="form-control" id="form-password">
 				                        </div>
                                                         <div class="form-group">
 				                        	<label class="sr-only" for="form-username">Confirm Password</label>
-				                        	<input type="password" name="confirmpassword" placeholder="Confirm Password as above (Mandatory)..." class="form-control" id="form-password">
+				                        	<input type="text" name="confirmpassword" placeholder="Confirm Password as above (Mandatory)..." class="form-control" id="form-password">
 				                        </div>
                                                         <div class="form-group">
 				                    		<label class="sr-only" for="form-first-name">First name</label>
@@ -476,23 +290,15 @@
 				                        <input class="btn btn-success btn-block" type="Submit" value="Sign me up!">
 				                    </form>
 			                    </div>
-                                            <c:if test="${error2 != null}">
-                                                <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
-                                                    ${error2}
-                                                </div>
-                                            </c:if>
-                                            <c:if test="${success != null}">
-                                                <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
-                                                    ${success}
-                                                </div>
-                                            </c:if>
+                                            
+			                    </div>
                         	</div>
                         	
                         </div>
-                    
+                    <div class="col-sm-4"></div>
                     </div>
                 </div>
         </div>
-        </div>
+        
 
-<%@ include file='WEB-INF/view/footer.jspf' %>
+<%@ include file='footer.jspf' %>

@@ -1,5 +1,5 @@
 
-<%@ include file='WEB-INF/jspf/header.jspf' %>
+<%@ include file='WEB-INF/view/header.jspf' %>
 <c:set var="title" value="Login" scope="request"/>
 <c:set var="page" value="login" scope="request"/>
 
@@ -28,13 +28,15 @@
                                     <br>
                                     <br>
                                     <label class="sr-only" for="form-email">Email</label>
-                                        <input type="e-mail" name="email" placeholder="Email..." class="form-control" id="form-email">
+                                        <input type="text" name="email" placeholder="Email..." class="form-control" id="form-email">
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-password">Password</label>
                                         <input type="password" name="password" placeholder="Password..." class="form-control" id="form-password">
                                 </div>
                                 <p style="margin-top:45px"><input class="btn btn-success btn-block" type="submit" value="Login"></p>
+                                
+                                <center><p style="font-size: smaller; margin-top: 20px"> Try with email/password combination: admin@pin.net/adminadmin </p></center>
                             </form> 
                         
        
@@ -88,8 +90,8 @@
                       "name"  : googleUser.getBasicProfile().getName(),
                       "email" : googleUser.getBasicProfile().getEmail(), 
                   });
-            }, function(error) {
-              console.log(JSON.stringify(error, undefined, 2));
+            }, function(error1) {
+              console.log(JSON.stringify(error1, undefined, 2));
             });
     }
     
@@ -174,9 +176,9 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 </script>
-<c:if test="${error != null}">
+<c:if test="${error1 != null}">
     <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
-        ${error}
+        ${error1}
     </div>
 </c:if>
                         </div>
@@ -197,39 +199,45 @@
 	                </div>
 	            </div>
 	            <div class="form-bottom">
-                        <form method="POST" action="./RegisterServlet" accept-charset="UTF-8" role="form" id="registration-form" class="registration-form">
+                        <form method="POST" action="./register" accept-charset="UTF-8" role="form" id="registration-form" class="registration-form">
 
 				                    	<div class="form-group">
-				                        	<label class="sr-only" for="form-email">Email*</label>
-                                                                <input type="e-mail" name="email" placeholder="Email..." class="form-control" id="form-email">
+				                        	<label class="sr-only" for="form-email">Email</label>
+                                                                <input type="text" name="email" placeholder="Email (Mandatory)..." class="form-control" id="form-email">
 				                        </div>
                                                         <div class="form-group">
-				                        	<label class="sr-only" for="form-username">Username*</label>
-				                        	<input type="text" name="form-username" placeholder="Username" class="form-control" id="form-username">
+				                        	<label class="sr-only" for="form-username">Username</label>
+				                        	<input type="text" name="username" placeholder="Username (Mandatory)..." class="form-control" id="form-username">
 				                        </div>
                                                         <div class="form-group">
-				                    		<label class="sr-only" for="form-first-name">First name*</label>
-				                        	<input type="text" name="form-first-name" placeholder="First name..." class="form-control" id="form-first-name">
+				                        	<label class="sr-only" for="form-username">Password</label>
+				                        	<input type="password" name="password" placeholder="Password (Mandatory)..." class="form-control" id="form-password">
 				                        </div>
                                                         <div class="form-group">
-				                    		<label class="sr-only" for="form-last-name">Last name*</label>
-				                        	<input type="text" name="form-last-name" placeholder="Last name..." class="form-control" id="form-last-name">
+				                        	<label class="sr-only" for="form-username">Confirm Password</label>
+				                        	<input type="password" name="confirmpassword" placeholder="Confirm Password as above (Mandatory)..." class="form-control" id="form-password">
+				                        </div>
+                                                        <div class="form-group">
+				                    		<label class="sr-only" for="form-first-name">First name</label>
+				                        	<input type="text" name="first-name" placeholder="First name (Mandatory)..." class="form-control" id="form-first-name">
+				                        </div>
+                                                        <div class="form-group">
+				                    		<label class="sr-only" for="form-last-name">Last name</label>
+				                        	<input type="text" name="last-name" placeholder="Last name (Mandatory)..." class="form-control" id="form-last-name">
 				                        </div>
                                                          <div class="form-check">
-				                        	
-                                                                <input class="form-check-input" type="checkbox" value="" id="Male"> 
-                                                                <label class="form-check-label" for="form-gender">Male*</label>
+				                        	<p style="margin-top:30px;">Gender (Mandatory) :</p>
+                                                                <label class="form-check-label" for="form-gender">
+                                                                    <input class="form-check-input" type="radio" name="optionsRadios"  id="optionsRadios1" value="1" checked>Male</label>
 				                        </div>
-                                                        <div class="form-check">
-				                        	
-                                                                <input class="form-check-input" type="checkbox" value="" id="Female"> 
-                                                                <label class="form-check-label" for="form-gender">Female*</label>
+                                                        <div class="form-check"> 
+                                                                <label class="form-check-label" for="form-gender">
+                                                                    <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="2">Female</label>
 				                        </div>
 				                        <div class="form-group">
-				                        	<label class="sr-only" for="form-country">Country</label>
+				                        	<label class="sr-only" for="form-country">Country (optional)</label>
                                                                 <select class="form-control" name="country" style="border-radius: 0 0 4px 4px">
                                                                 <option value="Afghanistan">Afghanistan</option>
-                                                                <option value="?land Islands">?land Islands</option>
                                                                 <option value="Albania">Albania</option>
                                                                 <option value="Algeria">Algeria</option>
                                                                 <option value="American Samoa">American Samoa</option>
@@ -468,6 +476,16 @@
 				                        <input class="btn btn-success btn-block" type="Submit" value="Sign me up!">
 				                    </form>
 			                    </div>
+                                            <c:if test="${error2 != null}">
+                                                <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
+                                                    ${error2}
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${success != null}">
+                                                <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
+                                                    ${success}
+                                                </div>
+                                            </c:if>
                         	</div>
                         	
                         </div>
@@ -477,4 +495,4 @@
         </div>
         </div>
 
-<!--%@ include file='WEB-INF/jspf/footer.jspf' %-->
+<%@ include file='WEB-INF/view/footer.jspf' %>

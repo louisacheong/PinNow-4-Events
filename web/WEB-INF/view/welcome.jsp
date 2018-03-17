@@ -1,5 +1,5 @@
 
-<%@ include file='WEB-INF/jspf/header.jspf' %>
+<%@ include file='header.jspf' %>
   
 <div class="top-content">
     <div class="inner-bg">   	
@@ -8,9 +8,10 @@
                 <div class="col-sm-8 col-sm-offset-2 text"><h2><strong>PinNow 4 Events</h2>
                     <h2>Welcome Page</h2></div>
                 
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Settings</a></li>
-                        <li><a href="#">Statistics</a></li>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="${pageContext.request.contextPath}/editUser">Settings</a></li>
+                        <li><a href="viewStats.jsp">Statistics</a></li>
+                        <li><a href="#">Log out</a></li>
 
                     </ul>
                
@@ -68,4 +69,4 @@
    
     
     
-<%@ include file='WEB-INF/jspf/footer.jspf' %>
+<%@ include file='footer.jspf' %>

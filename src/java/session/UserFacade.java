@@ -46,7 +46,7 @@ public class UserFacade extends AbstractFacade<User> {
         User user = authenticate(email);
         if (user != null){
             String hashedPassword = hash(password.trim());
-            if (!user.getPassword().equals(hashedPassword))
+            if (!user.getPassword().equals(hashedPassword)) //authentication is successful when the user found by email has a password that matches the hashed password
                 user = null;
         }
         return user;

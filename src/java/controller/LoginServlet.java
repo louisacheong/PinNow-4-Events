@@ -45,18 +45,18 @@ public class LoginServlet extends HttpServlet {
             User user = UserFacade.authenticate(email, password);
             if (user != null){
                 LoginInfo.setLoginInfo(session, new LoginInfo(method, user));
-                RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/welcome.jsp");
                 rd.forward(request, response);
             } else {
                 request.setAttribute("error", "Credentials provided are incorrect. Please make sure email and password are correct)");
                 RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                 rd.include(request, response);
             }}else{
-                //GOOGLE or FACEBOOK login, only email can be authenticated
+                //for GOOGLE or FACEBOOK login, only email can be authenticated
                 User user = UserFacade.authenticate(email);
                 if (user != null){
                     LoginInfo.setLoginInfo(session, new LoginInfo(method,user));
-                    RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/welcome.jsp");
                     rd.forward(request, response);
                 }else{
                     request.setAttribute("error", "User does not exist in DB. Please try other authentication methods");
