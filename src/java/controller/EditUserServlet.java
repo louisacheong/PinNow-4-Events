@@ -65,7 +65,7 @@ public class EditUserServlet extends HttpServlet {
             }
             user.setCountry(country);
             UserFacade.edit(user);
-            request.setAttribute("success", "Edited :" + email + ". Please login with new settings.");
+            request.setAttribute("successEdit", "Edited " + email + ". Please login with new settings.");
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);  
         }

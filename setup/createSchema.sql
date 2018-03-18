@@ -33,6 +33,23 @@ CREATE TABLE IF NOT EXISTS `PinNow`.`user` (
   PRIMARY KEY (`email`));
 
 
+-- -----------------------------------------------------
+-- Table `PinNow`.`track_login`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PinNow`.`track_login` ;
+
+CREATE TABLE IF NOT EXISTS `PinNow`.`track_login` (
+  `email` VARCHAR(255) NOT NULL,
+  `last_login` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`email`, `last_login`),
+  CONSTRAINT 
+    FOREIGN KEY (`email`)
+    REFERENCES `PinNow`.`user`(`email`) );
+
+
+
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

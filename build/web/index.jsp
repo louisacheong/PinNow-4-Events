@@ -11,6 +11,11 @@
                     <h2>Login &amp; Registration Form</h2></div>
             </div>
             <div class="row">
+                <c:if test="${successEdit != null}">
+                    <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
+                    ${successEdit}
+                    </div>
+                </c:if>
                 <div class="col-sm-5">
                     <div class="form-box">
                         <div class="form-top">

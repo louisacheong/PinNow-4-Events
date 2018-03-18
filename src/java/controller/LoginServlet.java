@@ -5,10 +5,11 @@
  */
 package controller;
 
+import entity.TrackLogin;
+import entity.TrackLoginPK;
 import entity.User;
-import login_session.LoginInfo;
+//import login_session.LoginInfo;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import login_session.LoginInfo;
+import session.TrackLoginFacade;
 import session.UserFacade;
 
 
@@ -30,6 +32,8 @@ public class LoginServlet extends HttpServlet {
 
     @EJB
     private UserFacade UserFacade;
+    @EJB
+    private TrackLoginFacade TrackLoginFacade;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -47,7 +51,17 @@ public class LoginServlet extends HttpServlet {
         } else {
             session.setAttribute("method", s_method);
         }
-        session.setAttribute("loginDate", new Date());
+        Date lastLogin = new Date(); 
+        session.setAttribute("loginDate", lastLogin);
+        
+        TrackLoginPK loginKey = new TrackLoginPK();
+        loginKey.setEmail(email);
+        loginKey.setLastLogin(lastLogin);
+        TrackLogin loginEntry = new TrackLogin();
+        loginEntry.setTrackLoginPK(loginKey);
+        TrackLoginFacade.create(loginEntry);
+        
+        
 
         if (s_method == null){
             //s_method == null means login method is via website, authentication done based on email and password provided
