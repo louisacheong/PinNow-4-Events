@@ -1,56 +1,72 @@
 <%@ include file='header.jspf' %>
-  
+
 <div class="top-content">
     <div class="inner-bg">   	
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2 text"><h2><strong>PinNow 4 Events</h2>
-                    <h2>Edit User Settings</h2></div>
+                    <h2>Edit User Settings</h2>
+                    <h3>for </h3>
+                    <h3><c:out value="${sessionScope.user}"/></h3></div> 
             </div>
      <div class="row">       
-         <div class="col-sm-4"></div>
-            <div class="col-sm-4">
+         <div class="col-lg-4"></div>
+            <div class="col-lg-4">
                 <div class="form-box">
                     
 	            <div class="form-bottom">
-                        <form method="POST" action="./register" accept-charset="UTF-8" role="form" id="registration-form" class="registration-form">
+                        <form method="POST" action="./editUser" accept-charset="UTF-8" role="form" id="edit-form" class="form-edit">
 
 				                    	<div class="form-group">
 				                        	<label class="sr-only" for="form-email">Email</label>
-                                                                <input type="text" name="email" placeholder="Email (Mandatory)..." class="form-control" id="form-email">
+                                                                <input type="text" name="email" value="${user.email}" class="form-control" id="form-email" disabled>
 				                        </div>
                                                         <div class="form-group">
 				                        	<label class="sr-only" for="form-username">Username</label>
-				                        	<input type="text" name="username" placeholder="Username (Mandatory)..." class="form-control" id="form-username">
+				                        	<input type="text" name="username" value="${user.username}" class="form-control" id="form-username">
 				                        </div>
                                                         <div class="form-group">
 				                        	<label class="sr-only" for="form-username">Password</label>
-				                        	<input type="text" name="password" placeholder="Password (Mandatory)..." class="form-control" id="form-password">
+				                        	<input type="password" name="password" value="${user.password}" class="form-control" id="form-password">
 				                        </div>
                                                         <div class="form-group">
 				                        	<label class="sr-only" for="form-username">Confirm Password</label>
-				                        	<input type="text" name="confirmpassword" placeholder="Confirm Password as above (Mandatory)..." class="form-control" id="form-password">
+				                        	<input type="password" name="confirmpassword" value="${user.password}" class="form-control" id="form-password">
 				                        </div>
                                                         <div class="form-group">
 				                    		<label class="sr-only" for="form-first-name">First name</label>
-				                        	<input type="text" name="first-name" placeholder="First name (Mandatory)..." class="form-control" id="form-first-name">
+				                        	<input type="text" name="first-name" value="${user.firstname}" class="form-control" id="form-first-name">
 				                        </div>
                                                         <div class="form-group">
 				                    		<label class="sr-only" for="form-last-name">Last name</label>
-				                        	<input type="text" name="last-name" placeholder="Last name (Mandatory)..." class="form-control" id="form-last-name">
+				                        	<input type="text" name="last-name" value="${user.lastname}" class="form-control" id="form-last-name">
 				                        </div>
-                                                         <div class="form-check">
-				                        	<p style="margin-top:30px;">Gender (Mandatory) :</p>
-                                                                <label class="form-check-label" for="form-gender">
-                                                                    <input class="form-check-input" type="radio" name="optionsRadios"  id="optionsRadios1" value="1" checked>Male</label>
-				                        </div>
-                                                        <div class="form-check"> 
-                                                                <label class="form-check-label" for="form-gender">
-                                                                    <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="2">Female</label>
-				                        </div>
-				                        <div class="form-group">
+                                                        <c:if test="${user.gender == false}">
+                                                        <div class="form-check">
+                                                            <p style="margin-top:30px;">Gender (Mandatory) :</p>
+                                                            <label class="form-check-label" for="form-gender">
+                                                            <input class="form-check-input" type="radio" name="optionsRadios"  id="optionsRadios1" value="1" checked>Male</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <label class="form-check-label" for="form-gender">
+                                                            <input class="form-check-input" type="radio" name="optionsRadios"  id="optionsRadios2" value="2">Female</label>
+                                                        </div>
+                                                        </c:if>   
+                                                        <c:if test="${user.gender == true}">
+                                                        <div class="form-check">
+                                                            <p style="margin-top:30px;">Gender (Mandatory) :</p>
+                                                            <label class="form-check-label" for="form-gender">
+                                                            <input class="form-check-input" type="radio" name="optionsRadios"  id="optionsRadios1" value="1">Male</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <label class="form-check-label" for="form-gender">
+                                                            <input class="form-check-input" type="radio" name="optionsRadios"  id="optionsRadios2" value="2" checked>Female</label>
+                                                        </div>    
+                                                        </c:if>
+                                                            
+                                                        <div class="form-group">
 				                        	<label class="sr-only" for="form-country">Country (optional)</label>
-                                                                <select class="form-control" name="country" style="border-radius: 0 0 4px 4px">
+                                                                <select id="userCountry" class="form-control" name="country" style="border-radius: 0 0 4px 4px" selected="${user.country}">
                                                                 <option value="Afghanistan">Afghanistan</option>
                                                                 <option value="Albania">Albania</option>
                                                                 <option value="Algeria">Algeria</option>
@@ -71,7 +87,7 @@
                                                                 <option value="Bangladesh">Bangladesh</option>
                                                                 <option value="Barbados">Barbados</option>
                                                                 <option value="Belarus">Belarus</option>
-                                                                <option value="Belgium" selected>Belgium</option>
+                                                                <option value="Belgium">Belgium</option>
                                                                 <option value="Belize">Belize</option>
                                                                 <option value="Benin">Benin</option>
                                                                 <option value="Bermuda">Bermuda</option>
@@ -285,12 +301,19 @@
                                                             </select>
 
 				                        </div>
-				                        
-				                       
-				                        <input class="btn btn-success btn-block" type="Submit" value="Sign me up!">
+                                                        <script>
+                                                            selectCountry = document.getElementById("userCountry");
+                                                            selectCountry.value = "${user.country}";
+                                                        </script>
+                                                          
+				                        <input class="btn btn-success btn-block" type="Submit" value="Save Changes">
 				                    </form>
 			                    </div>
-                                            
+                                            <c:if test="${success != null}">
+                                                <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
+                                                    ${success}
+                                                </div>
+                                            </c:if>
 			                    </div>
                         	</div>
                         	

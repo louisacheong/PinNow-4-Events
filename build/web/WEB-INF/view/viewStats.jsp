@@ -1,6 +1,6 @@
 
 <%@ include file='WEB-INF/jspf/header.jspf' %>
-  
+<c:out value="${sessionScope.user}"/>   
 <div class="top-content">
     <div class="inner-bg">   	
         <div class="container">

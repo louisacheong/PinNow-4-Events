@@ -9,11 +9,13 @@ import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import session.UserFacade;
 
 /**
@@ -29,34 +31,43 @@ public class EditUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email    = request.getParameter("email");
-        User user = UserFacade.findByEmail(email);
+        HttpSession session = request.getSession(); /*across whole session, i.e. user login*/
+        String email = (String) session.getAttribute("user");
+        User user = UserFacade.find(email);
         request.setAttribute("user", user);
-        
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/editUser.jsp");
+        rd.forward(request,response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        String email = (String) session.getAttribute("user");
+        String userName = request.getParameter("username");//retrieve info from jsp pages by name
+        String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmpassword");
+        String firstName = request.getParameter("first-name");
+        String lastName = request.getParameter("last-name");
+        String genderValue = request.getParameter("optionsRadios"); //will return value of checked boxes otherwise will return null
+        String country = request.getParameter("country");
+        if (password.equals(confirmPassword)){
+            User user = UserFacade.find(email);
+            user.setUsername(userName);
+            user.setPassword(password);
+            user.setFirstname(firstName);
+            user.setLastname(lastName);
+            if(genderValue.equals("2")){
+                user.setGender(true);
+            } else {
+                user.setGender(false);
+            }
+            user.setCountry(country);
+            UserFacade.edit(user);
+            request.setAttribute("success", "Edited :" + email + ". Please login with new settings.");
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            rd.forward(request, response);  
+        }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

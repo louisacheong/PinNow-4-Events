@@ -9,6 +9,7 @@ import entity.User;
 import login_session.LoginInfo;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,15 +41,23 @@ public class LoginServlet extends HttpServlet {
         String email    = request.getParameter("email");
         String password = request.getParameter("password");
         LoginInfo.Method method = LoginInfo.Method.parse(s_method);
+        session.setAttribute("user",email);
+        if (s_method == null){
+            session.setAttribute("method", "WEBSITE");
+        } else {
+            session.setAttribute("method", s_method);
+        }
+        session.setAttribute("loginDate", new Date());
 
-        if (method == LoginInfo.Method.WEBSITE){
+        if (s_method == null){
+            //s_method == null means login method is via website, authentication done based on email and password provided
             User user = UserFacade.authenticate(email, password);
             if (user != null){
                 LoginInfo.setLoginInfo(session, new LoginInfo(method, user));
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/welcome.jsp");
                 rd.forward(request, response);
             } else {
-                request.setAttribute("error", "Credentials provided are incorrect. Please make sure email and password are correct)");
+                request.setAttribute("error1", "Credentials provided are incorrect. Please make sure email and password are correct)");
                 RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                 rd.include(request, response);
             }}else{
@@ -59,7 +68,7 @@ public class LoginServlet extends HttpServlet {
                     RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/welcome.jsp");
                     rd.forward(request, response);
                 }else{
-                    request.setAttribute("error", "User does not exist in DB. Please try other authentication methods");
+                    request.setAttribute("error1", "User does not exist in DB. Please try other authentication methods");
                     RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                     rd.include(request, response);
                 }

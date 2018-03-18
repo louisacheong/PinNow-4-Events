@@ -43,7 +43,7 @@ body {
 strong { font-weight: 500; }
 
 a, a:hover, a:focus {
-	color: #19b9e7;
+	color: whitesmoke;
 	text-decoration: none;
     -o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
 }
@@ -66,6 +66,10 @@ h3{
 font-size:18px;
 text-align:center;
 text-shadow:1px 0px 3px gray;
+}
+
+ul.li{
+color: whitesmoke
 }
 
 

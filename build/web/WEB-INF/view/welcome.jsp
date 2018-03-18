@@ -9,9 +9,10 @@
                     <h2>Welcome Page</h2></div>
                 
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="${pageContext.request.contextPath}/editUser">Settings</a></li>
-                        <li><a href="viewStats.jsp">Statistics</a></li>
-                        <li><a href="#">Log out</a></li>
+                        <h3><c:out value="${sessionScope.user}"/></h3>
+                        <li style="font-"><a href="${pageContext.request.contextPath}/editUser">Settings</a></li>
+                        <li><a href="${pageContext.request.contextPath}/viewStats">Statistics</a></li>
+                        <li><a href="index.jsp">Log out</a></li>
 
                     </ul>
                
