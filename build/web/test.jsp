@@ -14,7 +14,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>This File is to test data source</h1>
         <sql:setDataSource
             var= "myds"
             driver="com.mysql.jdbc.Driver"

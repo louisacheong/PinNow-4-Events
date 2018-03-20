@@ -3,7 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/setup/createSchemaUser.sql</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/web.xml</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/EditUserServlet.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/view/footer.jspf</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/entity/TrackLogin.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/view/viewStats.jsp</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/setup/createSchema.sql</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/session/TrackLoginFacade.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/view/header.jspf</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/index.jsp</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/session/AbstractFacade.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/entity/TrackLoginPK.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/entity/User.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/LoginServlet.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/view/welcome.jsp</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/RegisterServlet.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/ViewStatsServlet.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/session/UserFacade.java</file>
         </group>
     </open-files>
 </project-private>

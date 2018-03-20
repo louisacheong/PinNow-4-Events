@@ -19,7 +19,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="fb:app_id" content="180085452780493">
-    <meta name="google-signin-client_id" content="159851688843-cetlcq1er8j718ti9cps5da4ih3licuq.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="331432826-ohvbivkvfi8t6gsblg0270kerse7m404.apps.googleusercontent.com">
     <meta name= "google-signin-scope" content="profile email">
 
 
@@ -33,14 +33,13 @@
     <link rel="stylesheet" href="css/style.css">            
     
     
-    <!--link rel="stylesheet" href="css/welcomestyle.css"-->            
     
     
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <!--script src="salvattore.js"></script-->
+    <!--script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script-->
+    
     
     <!-- Favicon and touch icons -->
-    <link rel="shortcut icon" href="assets/ico/favicon.png">
+    <link rel="shortcut icon" href="icon/favicon.png">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="icon/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="icon/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="icon/apple-touch-icon-72-precomposed.png">
@@ -49,10 +48,11 @@
             
   
     <!--registration-->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/jquery.backstretch.min.js"></script>
-    <script src="js/scripts.js"></script>
+    <!--script src="js/bootstrap.min.js"></script-->
+    <!--script src="js/jquery-1.11.1.min.js"></script-->
+    <!--script src="js/jquery.backstretch.min.js"></script-->
+    <!--script src="js/scripts.js"></script-->
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 
     
     <!-- Comment following lines for offline use -->

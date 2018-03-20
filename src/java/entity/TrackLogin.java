@@ -24,7 +24,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "TrackLogin.findAll", query = "SELECT t FROM TrackLogin t")
     , @NamedQuery(name = "TrackLogin.findByEmail", query = "SELECT t FROM TrackLogin t WHERE t.trackLoginPK.email = :email")
-    , @NamedQuery(name = "TrackLogin.findByLastLogin", query = "SELECT t FROM TrackLogin t WHERE t.trackLoginPK.lastLogin = :lastLogin")})
+    , @NamedQuery(name = "TrackLogin.findByLastLogin", query = "SELECT t FROM TrackLogin t WHERE t.trackLoginPK.lastLogin = :lastLogin")
+    , @NamedQuery(name= "TrackLogin.LoginsPast2Weeks", query = "SELECT t FROM TrackLogin t WHERE t.trackLoginPK.email = :email AND t.trackLoginPK.lastLogin > :dateToLookBackAfter")})
 public class TrackLogin implements Serializable {
 
     private static final long serialVersionUID = 1L;

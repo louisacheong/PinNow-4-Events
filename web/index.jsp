@@ -28,6 +28,7 @@
                             </div>
                         </div>
                         <div class="form-bottom">
+                            <!-- WEBSITE Login-->
                             <form method="POST" action="./welcome" accept-charset="UTF-8" role="form" id="loginform" class="form-signin">
                                 <div class="form-group">
                                     <br>
@@ -50,20 +51,14 @@
     <center><p style="margin-top:30px;">or</p></center>
     <center><div id="googleLogin" class="g-signin2" data-width="400" data-height="38" data-longtitle="true"></div></center>
     <p class="text-center" style="margin-top:3px;"></p>
-    <!--<center><div id="gSignInWrapper">
-        <div id="customBtn" class="customGPlusSignIn" onclick="signOut();">
-            <span class="icon"></span>
-                <span class="buttonText">Log out</span>
-        </div>
-    </div>   
-        <div id="name"></div></center>-->
+    
     
     <!-- Facebook sign in -->
     <center><p style="margin-top:30px;">or</p></center>
  
     <div class="fb-login-button" data-max-rows="1" data-size="large" width = "550" height="38" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>
     
-    <!--<br/><a href="javascript:fbLogout()">Facebook log out (testing)</a>-->
+
     
   
     
@@ -86,13 +81,13 @@
     function attachSignin(element) {
         console.log(element.id);
         auth2.attachClickHandler(element, {},
-            function(googleUser) {
+            function (googleUser) {
                 // document.getElementById('name').innerText = "Signedin:" +
                 //  googleUser.getBasicProfile().getName();
                   console.log('Email' + googleUser.getBasicProfile().getEmail());
-                  post("./welcome", {
+                  $.post("./welcome", {
                       "method": "google",
-                      "name"  : googleUser.getBasicProfile().getName(),
+                      "username"  : googleUser.getBasicProfile().getName(),
                       "email" : googleUser.getBasicProfile().getEmail(), 
                   });
             }, function(error1) {
@@ -107,6 +102,8 @@
             document.getElementById('name').innerText = "";
         });
     }
+    
+    
 
     $(document).ready(function(){
         startApp();
@@ -124,9 +121,9 @@
             console.log('login response: ' + JSON.stringify(response));
             FB.api('/me', {fields: 'name,email'}, function(response) {
                 console.log('/me response: ' + JSON.stringify(response));
-                post("./welcome",{
+                $.post("./welcome",{
                     "method": "facebook",
-                    "name": response.name,
+                    "username": response.name,
                     "email": response.email
                 });
             });
@@ -169,7 +166,7 @@
           appId  : '180085452780493',
           cookie : true,  // enable cookies to allow server to access session
           xfbml  : true,  // parse social plugins on this page
-          version: 'v2.12' // use graph api version 2.8
+          version: 'v2.8' // use graph api version 2.8
         });
     };
 
@@ -207,20 +204,20 @@
                         <form method="POST" action="./register" accept-charset="UTF-8" role="form" id="registration-form" class="registration-form">
 
 				                    	<div class="form-group">
-				                        	<label class="sr-only" for="form-email">Email</label>
-                                                                <input type="text" name="email" placeholder="Email (Mandatory)..." class="form-control" id="form-email">
+				                        	<label class="sr-only" for="email">Email</label>
+                                                                <input type="text" name="email" placeholder="Email (Mandatory)..." class="form-control" id="email">
 				                        </div>
                                                         <div class="form-group">
 				                        	<label class="sr-only" for="form-username">Username</label>
 				                        	<input type="text" name="username" placeholder="Username (Mandatory)..." class="form-control" id="form-username">
 				                        </div>
                                                         <div class="form-group">
-				                        	<label class="sr-only" for="form-username">Password</label>
-				                        	<input type="password" name="password" placeholder="Password (Mandatory)..." class="form-control" id="form-password">
+				                        	<label class="sr-only" for="form-pwd">Password</label>
+				                        	<input type="password" name="password" placeholder="Password (Mandatory)..." class="form-control" id="form-pwd">
 				                        </div>
                                                         <div class="form-group">
-				                        	<label class="sr-only" for="form-username">Confirm Password</label>
-				                        	<input type="password" name="confirmpassword" placeholder="Confirm Password as above (Mandatory)..." class="form-control" id="form-password">
+				                        	<label class="sr-only" for="form-confirmpassword">Confirm Password</label>
+				                        	<input type="password" name="confirmpassword" placeholder="Confirm Password as above (Mandatory)..." class="form-control" id="form-confirmpassword">
 				                        </div>
                                                         <div class="form-group">
 				                    		<label class="sr-only" for="form-first-name">First name</label>

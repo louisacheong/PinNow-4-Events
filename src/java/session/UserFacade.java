@@ -33,17 +33,17 @@ public class UserFacade extends AbstractFacade<User> {
     
 
     
-    public User authenticate(String email){
+    public User auth(String email){
         if (email == null)
             return null;
-        return findByEmail(email.trim());
+        return find(email.trim());
     }
     
     
     public User authenticate(String email, String password){
         if (email == null || password == null)
             return null;
-        User user = authenticate(email);
+        User user = auth(email);
         if (user != null){
             String hashedPassword = hash(password.trim());
             if (!user.getPassword().equals(hashedPassword)) //authentication is successful when the user found by email has a password that matches the hashed password
@@ -81,12 +81,7 @@ public class UserFacade extends AbstractFacade<User> {
         q.setParameter("password",password);
         return (User)q.getSingleResult();
     }
-    
-    public User findByEmail(String email) {
-        Query q = em.createNamedQuery("User.findByEmail");
-        q.setParameter("email",email);
-        return (User)q.getSingleResult();
-    }
+   
     
 }
 

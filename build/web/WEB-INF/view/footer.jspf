@@ -1,17 +1,13 @@
 <footer>
-            <c:if test="${!page.equals('index')}">
-                
-            </c:if>
-
-
-            <div class="footer">
+           
+    <center><div class="footer">
                 <center><p>
                     PinNow 4 Events was made by
                     </p></center>
                 <center><p>
                     Cheong Phui San <br/>
                     </p></center>
-            </div>
-        </div>
+        </div></center>
+        
         <!--/body--></footer>
 </html>
