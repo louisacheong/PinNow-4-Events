@@ -1,6 +1,6 @@
 
 <%@ include file='header.jspf' %>
-  
+
 <div class="top-content">
     <div class="inner-bg">   	
         <div class="container">
@@ -19,9 +19,9 @@
             </div>
   
 <div class="masonry">
-        <div class="item"><img src="http://w3bits.com/wp-content/uploads/masonry.jpg"></div>
+        <div class="item"><img src="img/WeddingImg5.jpg"></div>
         <div class="item">
-            <div class="text-box">Text-only masonry block.</div>
+            <div class="text-box">The ring that binds.. </div>
         </div>
         <div class="item">
             <img src="http://media-cache-ec0.pinimg.com/736x/c3/10/22/c3102281f88237e7a2515099d2e6651f.jpg">
@@ -38,14 +38,14 @@
         <div class="item">
             <img src="http://media-cache-ak0.pinimg.com/736x/2e/7f/db/2e7fdb7ed765973407fed0b0141bb126.jpg">
             <div class="text-box">
-                <h2>A block with a headline</h2></div>
+                <h2>Thirst Quenchers</h2></div>
         </div>
         <div class="item">
-            <img src="http://media-cache-ec0.pinimg.com/600x/0b/87/f4/0b87f4eb50b3d7a7c9d70d97234753ab.jpg">
+            <img src="img/WeddingImg4.png">
             <div class="text-box">Lorem ipsum dolor sit amet, dicta dolore adipisci hic ipsam velit deleniti possimus cumque accusantium rerum quibusdam.</div>
         </div>
         <div class="item">
-            <img src="http://media-cache-ec0.pinimg.com/600x/95/11/02/951102f18d5a50c3ca483e93c6f92f5a.jpg">
+            <img src="img/WeddingImg3.png">
             <div class="text-box">Text-only masonry block.</div>
         </div>
         <div class="item">
@@ -58,16 +58,20 @@
             <iframe src="http://player.vimeo.com/video/91605331" width="500" height="281" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
         </div>
         <div class="item">
-            <img src="http://media-cache-ec0.pinimg.com/600x/97/35/91/97359142dce582b4530cb0f23fbe2e43.jpg">
+            <img src="img/WeddingImg2.png">
             <div class="text-box">Text-only masonry block.</div>
         </div>
         <div class="item">
-            <img src="http://media-cache-ec0.pinimg.com/600x/95/11/02/951102f18d5a50c3ca483e93c6f92f5a.jpg">
+            <img src="img/WeddingImg1.png">
             <div class="text-box">Text-only masonry block.</div>
         </div>
 
     </div>
    
     
-    
+ <script
+    async defer
+    data-pin-hover="true" data-pin-tall="true"
+    src="//assets.pinterest.com/js/pinit.js"
+></script>   
 <%@ include file='footer.jspf' %>

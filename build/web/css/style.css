@@ -6,7 +6,7 @@ body {
     color: #888;
     line-height: 30px;
     text-align: center;
-    background-image: url(../img/1.jpg);
+    background-image: url(../img/bckgnd_img.jpg);
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
@@ -155,6 +155,7 @@ iframe{
 
 .form-box {
 	margin-top: 70px;
+        
 }
 
 .form-top {
@@ -163,6 +164,8 @@ iframe{
 	background: #fff;
 	-moz-border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;
 	text-align: left;
+        opacity:0.8;
+        filter: alpha(opacity=50);
 }
 
 .form-top-left {
@@ -188,6 +191,8 @@ iframe{
 	background: #eee;
 	-moz-border-radius: 0 0 4px 4px; -webkit-border-radius: 0 0 4px 4px; border-radius: 0 0 4px 4px;
 	text-align: left;
+        opacity:0.6;
+        filter: alpha(opacity=50);
 }
 
 .form-bottom form textarea {

@@ -6,19 +6,25 @@
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/web.xml</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/EditUserServlet.java</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/view/footer.jspf</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/css/style.css</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/entity/TrackLogin.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/css/bootstrap-theme.css.map</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/setup/createPinAppSchema_new.sql</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/css/bootstrap.css.map</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/view/viewStats.jsp</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/setup/createSchema.sql</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/view/editUser.jsp</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/session/TrackLoginFacade.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/css/bootstrap.min.css</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/view/header.jspf</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/index.jsp</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/css/bootstrap.css</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/css/bootstrap-theme.css</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/session/AbstractFacade.java</file>
-            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/entity/TrackLoginPK.java</file>
-            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/entity/User.java</file>
-            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/LoginServlet.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/css/form-elements.css</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/css/bootstrap-theme.min.css</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/setup/LoginPast2weeks.sql</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/view/welcome.jsp</file>
-            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/RegisterServlet.java</file>
-            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/ViewStatsServlet.java</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/session/UserFacade.java</file>
         </group>
     </open-files>
