@@ -1,13 +1,13 @@
-<!--%@page import="login_session.LoginInfo"%-->
+<%@page import="login_session.LoginInfo"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 
-<!--% 
+<% 
     LoginInfo info = LoginInfo.getLoginInfo(session);
     request.setAttribute("info", info);
-%-->
+%>
 
 <!DOCTYPE html>
 <html lang="en"
@@ -18,14 +18,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--meta property="fb:app_id" content="180085452780493">
+    <!--meta property="fb:app_id" content="180085452780493"-->
     <meta name="google-signin-client_id" content="331432826-ohvbivkvfi8t6gsblg0270kerse7m404.apps.googleusercontent.com">
-    <meta name= "google-signin-scope" content="profile email"-->
+    <meta name= "google-signin-scope" content="profile email">
 
 
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500" rel="stylesheet"> 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link rel="stylesheet" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> 
+    <!--link rel="stylesheet" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"--> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
     
@@ -34,7 +34,7 @@
     
     
     
-    
+    <!--used in admin page and profile page-->
     <!--script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script-->
     
     

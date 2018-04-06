@@ -38,6 +38,11 @@ public class LoginInfo {
         return user;
     }
     
+    public static LoginInfo getLoginInfo(HttpSession session){
+        if (session==null) return null;
+        return (LoginInfo)session.getAttribute(ATTR_NAME);
+    }
+    
     public static void setLoginInfo(HttpSession session, LoginInfo info){
         if (session==null) return;
         session.setAttribute(ATTR_NAME,info);

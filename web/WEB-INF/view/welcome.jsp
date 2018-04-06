@@ -11,7 +11,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <h3><c:out value="${sessionScope.user}"/></h3>
                         <li style="font-"><a href="${pageContext.request.contextPath}/editUser">Settings</a></li>
-                        <li><a href="${pageContext.request.contextPath}/viewStats">Statistics</a></li>
+                        <li><a href="${pageContext.request.contextPath}/viewProfile">Profile</a></li>
                         <li><a href="index.jsp">Log out</a></li>
 
                     </ul>

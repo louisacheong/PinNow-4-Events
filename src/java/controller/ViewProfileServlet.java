@@ -26,8 +26,8 @@ import session.UserFacade;
  *
  * @author louisacheong
  */
-@WebServlet(name = "ViewStatsServlet", urlPatterns = {"/viewStats"})
-public class ViewStatsServlet extends HttpServlet {
+@WebServlet(name = "ViewProfileServlet", urlPatterns = {"/viewProfile"})
+public class ViewProfileServlet extends HttpServlet {
     @EJB
     private UserFacade UserFacade;
     @EJB
@@ -47,7 +47,7 @@ public class ViewStatsServlet extends HttpServlet {
         request.setAttribute("loginCount",loginCount);
         user.setLoginCounter(loginCount);
         UserFacade.edit(user);
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/viewStats.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/profile.jsp");
         rd.forward(request,response);
     }
 

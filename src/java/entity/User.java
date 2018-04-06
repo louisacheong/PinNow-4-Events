@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "User.findByCountry", query = "SELECT u FROM User u WHERE u.country = :country")
     , @NamedQuery(name = "User.findByLastLogin", query = "SELECT u FROM User u WHERE u.lastLogin = :lastLogin")
     , @NamedQuery(name = "User.findByLoginCounter", query = "SELECT u FROM User u WHERE u.loginCounter = :loginCounter")
+    , @NamedQuery(name = "User.findByIsAdmin", query = "SELECT u FROM User u WHERE u.isAdmin =:isAdmin")
     , @NamedQuery(name = "User.findByEmailAndUsername", query = "SELECT u FROM User u WHERE u.email = :email AND u.username =:username")})
 public class User implements Serializable {
 
@@ -81,6 +82,10 @@ public class User implements Serializable {
     private Date lastLogin;
     @Column(name = "login_counter")
     private Integer loginCounter;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "is_admin")
+    public boolean isAdmin;
 
     public User() {
     }
@@ -152,6 +157,14 @@ public class User implements Serializable {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+    
+    public boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public Date getLastLogin() {

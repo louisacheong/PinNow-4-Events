@@ -48,18 +48,18 @@ public class LoginServlet extends HttpServlet {
         //ServletContext ctxt = session.getServletContext();
         
 
-        if (s_method == null){
+        if (method==LoginInfo.Method.WEBSITE){
             //s_method == null means login method is via website, authentication done based on email and password provided
             User user = UserFacade.authenticate(email, password);
             
-            if (user != null){
-                System.out.println(user);
-                System.out.println(method);
-                //LoginInfo.setLoginInfo(session, new LoginInfo(method,user));
+            if (user != null && user.getIsAdmin()== false){
+                //System.out.println(user);
+                //System.out.println(method);
+                LoginInfo.setLoginInfo(session, new LoginInfo(method,user));
                 
                 //Set session object with attributes user, method and loginDate
                 session.setAttribute("user",email);
-                session.setAttribute("method", s_method);
+                session.setAttribute("method", method);
                 Date lastLogin = new Date(); 
                 session.setAttribute("loginDate", lastLogin);
                     
@@ -75,6 +75,10 @@ public class LoginServlet extends HttpServlet {
                 loginEntry.setTrackLoginPK(loginKey);
                 TrackLoginFacade.create(loginEntry);
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/welcome.jsp");
+                rd.forward(request, response);
+            } else if (user !=null && user.getIsAdmin()== true) {
+                LoginInfo.setLoginInfo(session, new LoginInfo(method,user));
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/admin.jsp");
                 rd.forward(request, response);
             } else {
                 request.setAttribute("error1", "Credentials provided are incorrect. Please make sure email and password are correct)");
@@ -86,9 +90,9 @@ public class LoginServlet extends HttpServlet {
             //for GOOGLE or FACEBOOK login, only email can be authenticated
             User user = UserFacade.find(email);
             if (user != null){
-                System.out.println(user);
-                System.out.println(s_method);
-                //LoginInfo.setLoginInfo(session, new LoginInfo(method,user));
+                //System.out.println(user);
+                //System.out.println(s_method);
+                LoginInfo.setLoginInfo(session, new LoginInfo(method,user));
                 
                 //Set session object with attributes user, method and loginDate
                 session.setAttribute("user",email);
@@ -109,11 +113,15 @@ public class LoginServlet extends HttpServlet {
                 TrackLoginFacade.create(loginEntry);
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/welcome.jsp");
                 rd.forward(request, response);
-            }/* else {
+            } else if (user != null && user.getIsAdmin()){
+                LoginInfo.setLoginInfo(session, new LoginInfo(method,user));
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/admin.jsp");
+                rd.forward(request, response);
+            } else {
                 request.setAttribute("error1", "Credentials provided are incorrect. Please make sure email and password are correct)");
                 RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                 rd.include(request, response);
-            }*/
+            }
         }
     }
 }
