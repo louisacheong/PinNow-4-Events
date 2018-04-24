@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -80,6 +81,24 @@ public class UserFacade extends AbstractFacade<User> {
         q.setParameter("email",email);
         q.setParameter("password",password);
         return (User)q.getSingleResult();
+    }
+    
+    public List<User> findByUsername(String searchText){
+        Query q = em.createNamedQuery("User.findByUsername");
+        q.setParameter("username",searchText);
+        return q.getResultList();
+    }
+    
+    public List<User> findByLastname(String searchText){
+        Query q = em.createNamedQuery("User.findByLastname");
+        q.setParameter("lastname",searchText);
+        return q.getResultList();
+    }
+    
+    public List<User> findByFirstname(String searchText){
+        Query q = em.createNamedQuery("User.findByFirstname");
+        q.setParameter("firstname",searchText);
+        return q.getResultList();
     }
    
     

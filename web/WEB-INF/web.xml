@@ -17,9 +17,16 @@
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping/-->
+    <context-param>
+        <description>The relative path to user images</description>
+        <param-name>userImagePath</param-name>
+        <param-value>img/users/</param-value>
+    </context-param>
+    
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    
 </web-app>

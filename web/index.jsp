@@ -44,17 +44,7 @@
                                 
                                 <center><p style="font-size: smaller; margin-top: 20px"> Try with email/password combination: admin@pin.net/adminadmin </p></center>
                             </form> 
-                             <!-- Google sign in -->
-                             <center><p style="margin-top:10px;">or</p></center>
-                            <center><div id="googleLogin" class="g-signin2" data-width="395" data-height="35" data-longtitle="true"></div></center>
-                            <p class="text-center" style="margin-top:3px;"></p>
-    
-    
-
-       
-        
-   
-    
+                        
 </div>
 
 
@@ -63,10 +53,12 @@
         ${error1}
     </div>
 </c:if>
-                        </div>
+<br><br><br>
                     </div>
-                
-            
+                    </div>
+
+ 
+   
     <div class="col-sm-1 middle-border"></div>
         <div class="col-sm-1"></div>
             <div class="col-sm-5">

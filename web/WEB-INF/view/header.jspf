@@ -11,24 +11,26 @@
 
 <!DOCTYPE html>
 <html lang="en"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:og="http://ogp.me/ns#"
-      xmlns:fb="https://www.facebook.com/2008/fbml">
+    
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--meta property="fb:app_id" content="180085452780493"-->
-    <meta name="google-signin-client_id" content="331432826-ohvbivkvfi8t6gsblg0270kerse7m404.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="331432826-ohvbivkvfi8t6gsblg0270kerse7m404.apps.googleusercontent.com"> <!--required for sig-in-->
     <meta name= "google-signin-scope" content="profile email">
 
 
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500" rel="stylesheet"> 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <!--link rel="stylesheet" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"--> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
-    
+        
+
+
+
     <link rel="stylesheet" href="css/form-elements.css">
     <link rel="stylesheet" href="css/style.css">            
     
@@ -43,13 +45,15 @@
     <!--script src="js/jquery-1.11.1.min.js"></script-->
     <!--script src="js/jquery.backstretch.min.js"></script-->
     <!--script src="js/scripts.js"></script-->
-    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 
     
     <!-- Comment following lines for offline use -->
     <script src="https://apis.google.com/js/platform.js"></script>
-    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script> <!--required for sign-in-->
     <script src="https://apis.google.com/js/api:client.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     
     
     </head>

@@ -7,11 +7,14 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -25,18 +28,29 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TrackLogin.findAll", query = "SELECT t FROM TrackLogin t")
     , @NamedQuery(name = "TrackLogin.findByEmail", query = "SELECT t FROM TrackLogin t WHERE t.trackLoginPK.email = :email")
     , @NamedQuery(name = "TrackLogin.findByLastLogin", query = "SELECT t FROM TrackLogin t WHERE t.trackLoginPK.lastLogin = :lastLogin")
-    , @NamedQuery(name= "TrackLogin.LoginsPast2Weeks", query = "SELECT t FROM TrackLogin t WHERE t.trackLoginPK.email = :email AND t.trackLoginPK.lastLogin > :dateToLookBackAfter")})
+    , @NamedQuery(name = "TrackLogin.findByStillLoggedIn", query = "SELECT t FROM TrackLogin t WHERE t.stillLoggedIn = :stillLoggedIn AND t.trackLoginPK.lastLogin >:timeToLookBackAfter")
+    , @NamedQuery(name= "TrackLogin.LoginsPast2Weeks", query = "SELECT t FROM TrackLogin t WHERE t.trackLoginPK.email =:email AND t.trackLoginPK.lastLogin >:dateToLookBackAfter")
+    , @NamedQuery(name= "TrackLogin.findByPK", query = "SELECT t FROM TrackLogin t WHERE t.trackLoginPK.email =:email AND t.trackLoginPK.lastLogin =:lastLogin")})
 public class TrackLogin implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected TrackLoginPK trackLoginPK;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "still_logged_in")
+    private boolean stillLoggedIn;
 
     public TrackLogin() {
     }
 
     public TrackLogin(TrackLoginPK trackLoginPK) {
         this.trackLoginPK = trackLoginPK;
+    }
+
+    public TrackLogin(TrackLoginPK trackLoginPK, boolean stillLoggedIn) {
+        this.trackLoginPK = trackLoginPK;
+        this.stillLoggedIn = stillLoggedIn;
     }
 
     public TrackLogin(String email, Date lastLogin) {
@@ -49,6 +63,14 @@ public class TrackLogin implements Serializable {
 
     public void setTrackLoginPK(TrackLoginPK trackLoginPK) {
         this.trackLoginPK = trackLoginPK;
+    }
+
+    public boolean getStillLoggedIn() {
+        return stillLoggedIn;
+    }
+
+    public void setStillLoggedIn(boolean stillLoggedIn) {
+        this.stillLoggedIn = stillLoggedIn;
     }
 
     @Override

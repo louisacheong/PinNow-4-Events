@@ -42,21 +42,23 @@ DROP TABLE IF EXISTS `PinNow`.`user_follows_user` ;
 
 CREATE TABLE IF NOT EXISTS `PinNow`.`user_follows_user` (
   `follower` VARCHAR(255) NOT NULL,
-  `person being followed` VARCHAR(255) NOT NULL,
+  `personBeingFollowed` VARCHAR(255) NOT NULL,
   `isPermitted` BOOLEAN NOT NULL DEFAULT false,
-  PRIMARY KEY (`follower`, `person being followed`),
-  INDEX `fk_user_has_user_user2_idx` (`person being followed` ASC),
-  INDEX `fk_user_has_user_user1_idx` (`follower` ASC),
-  CONSTRAINT `fk_user_has_user_user1`
+  PRIMARY KEY (`follower`, `personBeingFollowed`),
+  INDEX `fk_user_follows_user_user1_idx` (`personBeingFollowed` ASC),
+  INDEX `fk_user_follows_user_user_idx` (`follower` ASC),
+  CONSTRAINT `fk_user_follows_user_user`
     FOREIGN KEY (`follower`)
     REFERENCES `PinNow`.`user` (`email`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_has_user_user2`
-    FOREIGN KEY (`person being followed`)
+  CONSTRAINT `fk_user_follows_user_user1`
+    FOREIGN KEY (`personBeingFollowed`)
     REFERENCES `PinNow`.`user` (`email`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON UPDATE NO ACTION
+    )
+ENGINE=InnoDB;
 
 
 -- -----------------------------------------------------
@@ -67,12 +69,102 @@ DROP TABLE IF EXISTS `PinNow`.`track_login` ;
 CREATE TABLE IF NOT EXISTS `PinNow`.`track_login` (
   `email` VARCHAR(255) NOT NULL,
   `last_login` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `still_logged_in` BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (`email`, `last_login`),
   CONSTRAINT 
     FOREIGN KEY (`email`)
     REFERENCES `PinNow`.`user`(`email`) );
 
 
+-- -----------------------------------------------------
+-- Table `PinNow`.`topics`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PinNow`.`topics` ;
+
+CREATE TABLE IF NOT EXISTS `PinNow`.`topics` (
+  `name` VARCHAR(255) NOT NULL,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`name`));
+
+
+-- -----------------------------------------------------
+-- Table `PinNow`.`pinboards`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PinNow`.`pinboards` ;
+
+CREATE TABLE IF NOT EXISTS `PinNow`.`pinboards` (
+  `name` VARCHAR(255) NOT NULL,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `isPrivate` BOOLEAN NOT NULL DEFAULT FALSE,
+  `user_email` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`name`, `user_email`),
+  INDEX `fk_pinboards_user1_idx` (`user_email` ASC),
+  CONSTRAINT `fk_pinboards_user1`
+    FOREIGN KEY (`user_email`)
+    REFERENCES `PinNow`.`user` (`email`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+-- -----------------------------------------------------
+-- Table `PinNow`.`pins`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PinNow`.`pins` ;
+
+CREATE TABLE IF NOT EXISTS `PinNow`.`pins` (
+  `name` VARCHAR(255) NOT NULL,
+  `last_pinned` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `description` VARCHAR(255),
+  `pinboards_name` VARCHAR(255),
+  `pinboards_user_email` VARCHAR(255) ,
+  `topics_name` VARCHAR(255) NOT NULL,
+  `location` VARCHAR(255),
+  `user_email` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`name`,`topics_name`,`user_email`),
+  INDEX `fk_pins_topics1_idx` (`topics_name` ASC),
+  INDEX `fk_pins_user1_idx` (`user_email` ASC),
+  CONSTRAINT `fk_pins_user1`
+    FOREIGN KEY (`user_email`)
+    REFERENCES `PinNow`.`user` (`email`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pins_pinboards1`
+    FOREIGN KEY (`pinboards_name` , `pinboards_user_email`)
+    REFERENCES `PinNow`.`pinboards` (`name` , `user_email`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_pins_topics1`
+    FOREIGN KEY (`topics_name`)
+    REFERENCES `PinNow`.`topics` (`name`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+-- -----------------------------------------------------
+-- Table `PinNow`.`admin_create_or_update_topics`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PinNow`.`admin_create_or_update_topics` ;
+
+CREATE TABLE IF NOT EXISTS `PinNow`.`admin_create_or_update_topics` (
+  `user_email` VARCHAR(255) NOT NULL,
+  `topics_name` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`user_email`, `topics_name`),
+  INDEX `fk_admin_create_or_update_topics_topics1_idx` (`topics_name` ASC),
+  INDEX `fk_admin_create_or_update_topics_user1_idx` (`user_email` ASC),
+  CONSTRAINT `fk_admin_create_or_update_topics_user1`
+    FOREIGN KEY (`user_email`)
+    REFERENCES `PinNow`.`user` (`email`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_admin_create_or_update_topics_topics1`
+    FOREIGN KEY (`topics_name`)
+    REFERENCES `PinNow`.`topics` (`name`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
 
 
 

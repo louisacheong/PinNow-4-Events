@@ -1,1 +1,0 @@
-SELECT COUNT('#') FROM PinNow.track_login WHERE last_login > DATE_SUB(DATE(NOW()), INTERVAL 14 DAY) AND last_login<= DATE_SUB(DATE(NOW()), INTERVAL DAYOFWEEK(NOW())-1 DAY);

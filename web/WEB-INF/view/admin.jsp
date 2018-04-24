@@ -6,7 +6,7 @@
 <%@ include file='header.jspf' %>
 <link rel="stylesheet" href="css/admin.css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<!--script type="text/javascript" src="js/admin.js"></script-->
+  
 
 
 <div class="top-content">
@@ -19,142 +19,16 @@
 
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header"><div class="col-sm-12"><h2><strong>PinNow 4 Events</h2>
+            <div class="navbar-header"><div class="col-sm-12"><h2><strong>DIY Wedding Planner</h2>
                     <h2>Administrator Dashboard</h2></div></div>
                 <div class="col-sm-12">
                   <ul class="nav navbar-top-links navbar-right">
                         <h3><c:out value="${sessionScope.user}"/></h3>
-                <div class="dropdown">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-envelope fa-fw" style="color:gray"></i> <i class="fa fa-caret-down" style="color:gray"></i>
-                    </a>
-                     <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                      
-                    <!-- /.dropdown-messages -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-tasks fa-fw" style="color:gray"></i> <i class="fa fa-caret-down" style="color:gray"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-tasks">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 1</strong>
-                                        <span class="pull-right text-muted">40% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 2</strong>
-                                        <span class="pull-right text-muted">20% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                            <span class="sr-only">20% Complete</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 3</strong>
-                                        <span class="pull-right text-muted">60% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                            <span class="sr-only">60% Complete (warning)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 4</strong>
-                                        <span class="pull-right text-muted">80% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                            <span class="sr-only">80% Complete (danger)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Tasks</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-tasks -->
-                </li>
+                
+               
+                
+                    
+                
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -221,12 +95,12 @@
                         <i class="fa fa-user fa-fw" style="color:gray"></i> <i class="fa fa-caret-down" style="color:gray"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="${pageContext.request.contextPath}/userProfile"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li><a href="${pageContext.request.contextPath}/viewAdminProfile"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
                         <li><a href="${pageContext.request.contextPath}/editUser"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="index.jsp"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="${pageContext.request.contextPath}/Logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -250,10 +124,10 @@
                                     <i class="fa fa-users fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
-                                    <p></p>
-                                    <div> Online Users and </div>
+                                    <div class="huge"><c:out value="${onlineUsersCount}"/></div>
+                                    <div> Online Users !</div>
                                     <br>
+                                    <div class="huge"><c:out value="${regUsersCount}"/></div>
                                     <div>Registered Users !</div>
                                 </div>
                             </div>
@@ -314,10 +188,10 @@
                                     <i class="fa fa-comments fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">13</div>
+                                    <div class="huge">5</div>
                                     <br>
                                     <br>
-                                    <p></p>
+                                    <br>
                                     <div>Topics!</div>
                                 </div>
                             </div>
@@ -326,95 +200,119 @@
                     </div>
                 </div>
             </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-map-marker "></i> Wedding Locations </h3></div>
-                            <div class="panel-body">
-                                <!--div id="regions_div" style="max-width: 600px; height: 378px;"></div-->
-                                <!--div id="addTable"></div-->
-                                <div id="map" style="max-width: 100%; height: 378px;"></div>
-    <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 51.260197, lng: 4.402771},
-          zoom: 8
-        });
-      }
-    </script>
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-calendar"></i> Calendar View </h3></div>
-                            <div class="panel-body">
-                                <div id="barchart_div" style="max-width: 600px; height: 378px;"></div>
-                                <div id="addTable"></div>
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-            </div>
+           
+           
             <!-- /.row -->
             <div class="row">
                         <div class="col-lg-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-user-times"></i> Users Panel</h3>
+                                <h3 class="panel-title"><i class="fa fa-eye"></i> <i class="fa fa-user-times"></i> Users Panel</h3>
                             </div>
                             <div class="panel-body">
-                                <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
+                                <div class="input-group custom-search-form" style="width:95%">
+                                <form method="POST" action="./searchUserA" accept-charset="UTF-8" role="form" id="custom-search-form" class="custom-search-form">
+                                <input type="text" name="searchtext" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
+                                    <br>
+                                <input class="btn btn-default" type="submit" value="Search"><i class="fa fa-search"></i>
+                                    
+                                
                                 </span>
+                                </form>
                                 </div>
-                                <!-- TODO logic to block/remove users and promote/demote user to admin -->
+                            <table id="userTable">
+                                <c:forEach var="foundUser" items="${foundUser}" varStatus="iter">
+                                    <tr class="${((iter.index % 2) == 0) ? 'lightBlue' : 'white'}">
+                                        <td>
+                                            <h3><img src="${initParam.userImagePath}${foundUser.username}.jpg"
+                                                     alt="${foundUser.username}" class="img-rounded img-responsive" height="500px" width="386px"><c:out value="${foundUser.email}"></c:out></h3>
+                                                     <h3><c:out value="${foundUser.username}"/></h3>
+                                                     <h4><c:out value="${foundUser.country}"/></h4>
+                                            <p>
+                                            
+                                            <a href="${pageContext.request.contextPath}/removeUser" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-remove"></span>Remove User</a>
+                                            <c:choose>
+                                            <c:when test="${not foundUser.isAdmin}">
+                                                <a href="${pageContext.request.contextPath}/promoteUser" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-eye-open"></span>Promote to Admin</a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="${pageContext.request.contextPath}/demoteUser" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-eye-close"></span>Demote to User</a>
+                                            </c:otherwise>
+                                            </c:choose>
+                                                
+                                            </p>
+                                        </td>         
+                                    </tr>
+                                </c:forEach>
+                                </table>
+                                <c:if test="${searcherror != null}">
+                                    <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
+                                    ${searcherror}</div>
+                                </c:if>
+                                
                             </div>
                         </div>
                         </div>
                         <div class="col-lg-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-hashtag"></i> Topics Panel</h3>
+                                <h3 class="panel-title"><i class="fa fa-upload"></i> Content Panel</h3>
                             </div>
                             <div class="panel-body">
+                                <form action="./createTopic" method="post">
+                                    <input type="text" name="newtopic" class="form-control" placeholder="Topic Name...">
+                                    
+                                    <br>
+                                    <input class="btn btn-default" type="submit" value="Create"><i class="fa fa-plus-circle"></i>
+                                </form>
+                                
+                                <p><c:out value="${newTopicStatus}"/></p>
+                                
+                                <p>or</p>
+                                    
+                                <form action="./uploadContentA" method="post" enctype="multipart/form-data">    
                                 <div class="form-group">
-                                    <label for="imageFile">Images</label>
-                                    <input type="file" id="imageFile" name="imageFile" accept=".jpg, .png">
+                                    <label for="topic">Please select topic for Pin Image : </label>
+                                    
+                                    <select class="form-control" name="topic" style="border-radius: 0 0 4px 4px">
+                                    <c:forEach var="topic" items="${topic}" varStatus="iter">
+                                        <option value="<c:out value="${topic.name}"/>" > <c:out value="${topic.name}"/></option>
+                                    </c:forEach>
+                                    </select>
+                                    <br>
+                                    <label for="imageFile">Pin Image to be Uploaded (.jpg or .png) : </label>
+                                    <input class="form-control" type="file" id="imageFile" name="imageFile" accept=".jpg, .png">
+                                    
+                                    <p class="help-block">Pin image will be added into the topic selected.
+                                        <a href="./img/topic/WeddingImg1.png"</p>
                                 </div>
                                 <div>
-                                    <button type="submit" class="btn btn-primary">Upload</button>
+                                    <input type="submit" class="btn btn-primary" value="Upload">
                                 </div>
+                                </form>
+                                <p><c:out value="${newContentStatus}"/></p>
+                                 
                                 <!-- TODO logic to create topics and add pins -->
                             </div>
                         </div>
                     </div>
-                    </div>
+            </div>
                     <div class="row">
                     <div class="col-sm-12">
                     <div class="form-box">
                         <div class="form-top">
-                            <center><h3>You are logged in <c:out value="${loginCount}" /> times in the past 2 weeks</h3></center>
+                            <div class="form-top-left">
+                                                <h3>You are logged in 
+                                                <c:out value="${loginCount}" /> 
+                                                times in the past 2 weeks</h3>
+                                                </div>
                         </div>
                     </div>
                     </div></div></div></div></div></div>
                        
                         
        
-    
+   
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSfmXDopoIVNIHaNZl-nOZhxaVT2cZiXc&callback=initMap"></script>
 <%@ include file='footer.jspf' %>

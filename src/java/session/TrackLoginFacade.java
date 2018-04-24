@@ -6,7 +6,6 @@
 package session;
 
 import entity.TrackLogin;
-import entity.User;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -50,5 +49,25 @@ public class TrackLoginFacade extends AbstractFacade<TrackLogin> {
         return q.getResultList();
         
     }
+
+    public TrackLogin findByPK(String email, Date lastLogin) {
+        Query q = em.createNamedQuery("TrackLogin.findByPK");
+        q.setParameter("email", email);
+        q.setParameter("lastLogin", lastLogin);
+        return (TrackLogin)q.getSingleResult();
+    }
     
+    public List<TrackLogin> findByStillLoggedIn(Boolean stillLoggedIn){//create query which checks in addition  if user is still logged in in the past 2 minutes
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTimeZone(TimeZone.getTimeZone("UTC-1")); //Munich Time
+        calendar.setTime(new Date());
+        calendar.add(Calendar.MINUTE, - 2); //subtract 2 minutes to look back
+        Date timeToLookBackAfter = calendar.getTime();
+        System.out.println(timeToLookBackAfter);
+        Query q = em.createNamedQuery("TrackLogin.findByStillLoggedIn");
+        q.setParameter("stillLoggedIn", stillLoggedIn);
+        q.setParameter("timeToLookBackAfter", timeToLookBackAfter);
+        return q.getResultList();
+    
+    }
 }

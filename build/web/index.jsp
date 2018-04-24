@@ -45,10 +45,6 @@
                                 <center><p style="font-size: smaller; margin-top: 20px"> Try with email/password combination: admin@pin.net/adminadmin </p></center>
                             </form> 
                         
-       
-        
-   
-    
 </div>
 
 
@@ -57,10 +53,12 @@
         ${error1}
     </div>
 </c:if>
-                        </div>
+<br><br><br>
                     </div>
-                
-            
+                    </div>
+
+ 
+   
     <div class="col-sm-1 middle-border"></div>
         <div class="col-sm-1"></div>
             <div class="col-sm-5">
@@ -104,11 +102,11 @@
                                                          <div class="form-check">
 				                        	<p style="margin-top:30px;">Gender (Mandatory) :</p>
                                                                 <label class="form-check-label" for="form-gender">
-                                                                    <input class="form-check-input" type="radio" name="optionsRadios"  id="optionsRadios1" value="1" checked>Male</label>
+                                                                    <input class="form-check-input" type="radio" name="optionsRadios"  id="optionsRadios1" value="1" checked> Male</label>
 				                        </div>
                                                         <div class="form-check"> 
                                                                 <label class="form-check-label" for="form-gender">
-                                                                    <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="2">Female</label>
+                                                                    <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="2"> Female</label>
 				                        </div>
 				                        <div class="form-group">
 				                        	<label class="sr-only" for="form-country">Country (optional)</label>
