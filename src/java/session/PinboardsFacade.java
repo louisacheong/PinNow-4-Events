@@ -37,5 +37,19 @@ public class PinboardsFacade extends AbstractFacade<Pinboards> {
         q.setParameter("userEmail", email);
         return q.getResultList();
     }
+     
+    public Pinboards findByUserEmailandName(String email, String name){
+        Query q=em.createNamedQuery("Pinboards.findByUserEmailandName");
+        q.setParameter("userEmail", email);
+        q.setParameter("name", name);
+        return (Pinboards)q.getSingleResult();
+    }
+    
+    public List<Pinboards> findByName (String name){
+        Query q=em.createNamedQuery("Pinboards.findByName");
+        q.setParameter("name", name);
+        return q.getResultList();
+    }
+    
     
 }

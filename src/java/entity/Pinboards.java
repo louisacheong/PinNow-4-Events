@@ -35,7 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Pinboards.findByCreateTime", query = "SELECT p FROM Pinboards p WHERE p.createTime = :createTime")
     , @NamedQuery(name = "Pinboards.findByLastUpdated", query = "SELECT p FROM Pinboards p WHERE p.lastUpdated = :lastUpdated")
     , @NamedQuery(name = "Pinboards.findByIsPrivate", query = "SELECT p FROM Pinboards p WHERE p.isPrivate = :isPrivate")
-    , @NamedQuery(name = "Pinboards.findByUserEmail", query = "SELECT p FROM Pinboards p WHERE p.pinboardsPK.userEmail = :userEmail")})
+    , @NamedQuery(name = "Pinboards.findByUserEmail", query = "SELECT p FROM Pinboards p WHERE p.pinboardsPK.userEmail = :userEmail")
+    , @NamedQuery(name = "Pinboards.findByUserEmailandName", query = "SELECT p FROM Pinboards p WHERE p.pinboardsPK.userEmail = :userEmail AND p.pinboardsPK.name = :name")
+})
 public class Pinboards implements Serializable {
 
     private static final long serialVersionUID = 1L;

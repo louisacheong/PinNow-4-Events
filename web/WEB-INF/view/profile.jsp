@@ -202,8 +202,8 @@
                             <div class="row">
                                 <div class="col-sm-6 col-md-6">    
                                 <div class="input-group custom-search-form">
-                                <form method="POST" action="./searchUser" accept-charset="UTF-8" role="form" id="custom-search-form" class="custom-search-form">
-                                <input type="text" name="searchtext" class="form-control" placeholder="Search...">
+                                <form method="POST" action="./searchUserandBoard" accept-charset="UTF-8" role="form" id="custom-search-form" class="custom-search-form">
+                                <input type="text" name="searchtext" class="form-control" placeholder="Search for User...">
                                 <span class="input-group-btn">
                                 <input class="btn btn-default" type="submit" value="Search">
                                     <i class="fa fa-search"></i>
@@ -212,7 +212,8 @@
                                 </form>
                                 </div></div>
                                 <div class="col-sm-2 col-md-2">
-                                <table id="userTable">
+                                <c:if test= "${foundUser != null}">
+                                <table id="userTable" >
                                 <c:forEach var="foundUser" items="${foundUser}" varStatus="iter">
                                     <tr class="${((iter.index % 2) == 0) ? 'lightBlue' : 'white'}">
                                         <td>
@@ -230,9 +231,31 @@
                                     </tr>
                                 </c:forEach>
                                 </table>
+                                </c:if>
+                                <c:if test= "${foundBoard != null}">
+                                <table id="boardTable" width="100%" class="table-hover table-striped">
+                                    <c:forEach var="board" items="${foundBoard}" varStatus="status">
+                                        <tr>
+                                        <td>
+                                            <h3><c:out value="${board.pinboardsPK.name}"></c:out></h3>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <a href="${pageContext.request.contextPath}/followBoard?following=<c:out value="${board.pinboardsPK.userEmail}"/>&board=${board.pinboardsPK.name}" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Follow</a>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <a href="${pageContext.request.contextPath}/unfollowBoard?following=<c:out value="${board.pinboardsPK.userEmail}"/>&board=${board.pinboardsPK.name}" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span> Unfollow</a>
+                                        </td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
+                                </c:if>
                                 <c:if test="${searcherror != null}">
                                     <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
                                     ${searcherror}</div>
+                                </c:if>
+                                <c:if test="${searcherror1 != null}">
+                                    <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
+                                    ${searcherror1}</div>
                                 </c:if>
                                 <c:if test="${followstatus != null}">
                                     <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">

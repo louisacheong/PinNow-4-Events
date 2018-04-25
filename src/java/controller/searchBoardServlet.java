@@ -37,7 +37,7 @@ public class searchBoardServlet extends HttpServlet {
         String search = request.getParameter("searchtext");
         String searchText = search.trim();
         String[] foundkeywords = searchText.split(" ");
-        List<Pinboards> boards = PinboardsFacade.findAll();
+        List<Pinboards> boards = PinboardsFacade.findByUserEmail(email);
         
         //create List of boardnames in string for matching search
         String[] boardnames = new String[boards.size()];

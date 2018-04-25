@@ -166,6 +166,32 @@ CREATE TABLE IF NOT EXISTS `PinNow`.`admin_create_or_update_topics` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+-- -----------------------------------------------------
+-- Table `PinNow`.`user_follows_pinboard`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PinNow`.`user_follows_pinboard` ;
+
+CREATE TABLE IF NOT EXISTS `PinNow`.`user_follows_pinboard` (
+  `user_email` VARCHAR(255) NOT NULL,
+  `pinboards_name` VARCHAR(255) NOT NULL,
+  `pinboards_user_email` VARCHAR(255) NOT NULL,
+  `isPermitted` BOOLEAN NOT NULL DEFAULT false,
+  PRIMARY KEY (`user_email`, `pinboards_name`, `pinboards_user_email`),
+  INDEX `fk_user_follows_pinboard_pinboards1_idx` (`pinboards_name`, `pinboards_user_email` ASC),
+  INDEX `fk_user_follows_pinboard_user1_idx` (`user_email` ASC),
+  CONSTRAINT `fk_user_has_pinboards_user1`
+    FOREIGN KEY (`user_email`)
+    REFERENCES `PinNow`.`user` (`email`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_pinboards_pinboards1`
+    FOREIGN KEY (`pinboards_name`, `pinboards_user_email`)
+    REFERENCES `PinNow`.`pinboards` (`name`, `user_email`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
