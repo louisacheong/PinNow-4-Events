@@ -93,6 +93,7 @@ public class savePinServlet extends HttpServlet {
         //include boards to be displayed
         List<Pinboards> boards = PinboardsFacade.findByUserEmail(email);
         session.setAttribute("boards", boards);
+        session.setAttribute("board", newboard);
         
         request.setAttribute("boardstatus","Saved: " + pinName + " into " + pinboardName);
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/profile.jsp");

@@ -28,7 +28,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "UserFollowsUser.findByFollower", query = "SELECT u FROM UserFollowsUser u WHERE u.userFollowsUserPK.follower = :follower")
     , @NamedQuery(name = "UserFollowsUser.findByPersonBeingFollowed", query = "SELECT u FROM UserFollowsUser u WHERE u.userFollowsUserPK.personBeingFollowed = :personBeingFollowed")
     , @NamedQuery(name = "UserFollowsUser.findByPK", query = "SELECT u FROM UserFollowsUser u WHERE u.userFollowsUserPK.follower = :follower AND u.userFollowsUserPK.personBeingFollowed = :personBeingFollowed")
-    , @NamedQuery(name = "UserFollowsUser.findByIsPermitted", query = "SELECT u FROM UserFollowsUser u WHERE u.isPermitted = :isPermitted")})
+    , @NamedQuery(name = "UserFollowsUser.findByIsPermitted", query = "SELECT u FROM UserFollowsUser u WHERE u.isPermitted = :isPermitted")
+    , @NamedQuery(name = "UserFollowsUser.findByFollowerandisPermitted", query = "SELECT u FROM UserFollowsUser u WHERE u.userFollowsUserPK.follower = :follower AND u.isPermitted = :isPermitted")
+    , @NamedQuery(name = "UserFollowsUser.findByPersonBeingFollowedandisPermitted", query = "SELECT u FROM UserFollowsUser u WHERE u.userFollowsUserPK.personBeingFollowed = :personBeingFollowed AND u.isPermitted = :isPermitted")
+
+})
 public class UserFollowsUser implements Serializable {
 
     private static final long serialVersionUID = 1L;

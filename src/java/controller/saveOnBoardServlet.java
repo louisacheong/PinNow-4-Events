@@ -53,6 +53,7 @@ public class saveOnBoardServlet extends HttpServlet {
         System.out.println("Stoppoint2");
         //Send info on boards
         session.setAttribute("boards", boards);
+        session.setAttribute("board", board);
         System.out.println("Stoppoint3");
         System.out.println("Board" + board);
         System.out.println("Pin" + pin);

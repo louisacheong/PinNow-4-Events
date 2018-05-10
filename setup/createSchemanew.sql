@@ -26,12 +26,15 @@ CREATE TABLE IF NOT EXISTS `PinNow`.`user` (
   `lastname` VARCHAR(45) NOT NULL,
   `gender` TINYINT(1) NOT NULL,
   `country` VARCHAR(45) NULL,
+  `selectedtopics` VARCHAR(255) NOT NULL,
   `is_admin` BOOLEAN NOT NULL DEFAULT false,
   `last_login` TIMESTAMP NULL,
   `login_counter` INT NULL,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC),
   PRIMARY KEY (`email`));
+/*COMMENT = 'maintains user details';*/
+
 
 
 
@@ -68,7 +71,7 @@ DROP TABLE IF EXISTS `PinNow`.`track_login` ;
 
 CREATE TABLE IF NOT EXISTS `PinNow`.`track_login` (
   `email` VARCHAR(255) NOT NULL,
-  `last_login` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_login` TIMESTAMP NOT NULL ,
   `still_logged_in` BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (`email`, `last_login`),
   CONSTRAINT 
@@ -87,6 +90,7 @@ CREATE TABLE IF NOT EXISTS `PinNow`.`topics` (
   `last_updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`name`));
 
+/*COMMENT = 'maintains event categories that can only be edited by administrator';*/
 
 -- -----------------------------------------------------
 -- Table `PinNow`.`pinboards`
@@ -144,6 +148,7 @@ CREATE TABLE IF NOT EXISTS `PinNow`.`pins` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+/*COMMENT = 'Table pins maintains pin details. Updates to pinboards table will be cascaded into the pins table';*/
 -- -----------------------------------------------------
 -- Table `PinNow`.`admin_create_or_update_topics`
 -- -----------------------------------------------------
@@ -165,6 +170,7 @@ CREATE TABLE IF NOT EXISTS `PinNow`.`admin_create_or_update_topics` (
     REFERENCES `PinNow`.`topics` (`name`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
 
 -- -----------------------------------------------------
 -- Table `PinNow`.`user_follows_pinboard`
@@ -190,6 +196,53 @@ CREATE TABLE IF NOT EXISTS `PinNow`.`user_follows_pinboard` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
+
+-- -----------------------------------------------------
+-- Table `PinNow`.`notification`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PinNow`.`notification` ;
+
+CREATE TABLE IF NOT EXISTS `PinNow`.`notification` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `follower` VARCHAR(255) NOT NULL,
+  `BeingFollowed` VARCHAR(255) NOT NULL,
+  `update_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `pinboards_name` VARCHAR(255),
+  `isPermitted` BOOLEAN NOT NULL DEFAULT false,
+  `description` VARCHAR(255) NOT NULL,
+
+  PRIMARY KEY (`id`));
+  /*INDEX `fk_notification_user_follows_user1_idx` (`follower` , `BeingFollowed` ASC),
+    CONSTRAINT `fk_notification_user_follows_user1`
+        FOREIGN KEY (`follower` , `BeingFollowed`)
+        REFERENCES `PinNow`.`user_follows_user` (`follower` , `personBeingFollowed`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE)
+ENGINE = InnoDB;*/
+
+DELIMITER $$
+
+CREATE TRIGGER notifyUFU BEFORE INSERT ON `PinNow`.`user_follows_user`
+    FOR EACH ROW
+    BEGIN
+        INSERT INTO `PinNow`.`notification`(`follower`, `BeingFollowed`,`isPermitted`, `description` )
+        VALUES(NEW.`follower`, NEW.`personBeingFollowed`,NEW.`isPermitted`, 'follow user');
+    END;$$
+
+DELIMITER;
+
+DELIMITER $$
+
+CREATE TRIGGER notifyUFB BEFORE INSERT ON `PinNow`.`user_follows_pinboard`
+    FOR EACH ROW
+    BEGIN
+        INSERT INTO `PinNow`.`notification`(`follower`, `BeingFollowed`,`isPermitted`, `pinboards_name`, `description` )
+        VALUES(NEW.`user_email`, NEW.`pinboards_user_email`,NEW.`isPermitted`,NEW.`pinboards_name`, 'follow pinboard');
+    END;$$
+
+DELIMITER;
 
 
 

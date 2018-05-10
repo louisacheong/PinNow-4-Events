@@ -7,7 +7,7 @@
     <div class="inner-bg">   	
         <div class="container">
             <div class="row">
-                <div class="col-sm-8 col-sm-offset-2 text"><h2><strong>PinNow 4 Events</h2>
+                <div class="col-sm-8 col-sm-offset-2 text"><h2><strong>DIY Wedding Planner</h2>
                     <h2>Login &amp; Registration Form</h2></div>
             </div>
             <div class="row">
@@ -44,6 +44,12 @@
                                 
                                 <center><p style="font-size: smaller; margin-top: 20px"> Try with email/password combination: admin@pin.net/adminadmin </p></center>
                             </form> 
+                            <!-- Google sign in -->
+                             <center><p style="margin-top:10px;">or</p></center>
+                            <center><div id="googleLogin" class="g-signin2" data-width="395" data-height="35" data-longtitle="true"></div></center>
+                            
+                            <p class="text-center" style="margin-top:3px;"></p>
+                            
                         
 </div>
 
@@ -56,6 +62,66 @@
 <br><br><br>
                     </div>
                     </div>
+<!-- Google sign-in hooks -->
+
+<script>
+    function post(path,parameters){
+        var form=$('<form></form>');
+        form.attr("method","post");
+        form.attr("action",path);
+        $.each(parameters, function(key,value){
+            var field = $('<input></input>');
+            field.attr("type","hidden");
+            field.attr("name",key);
+            field.attr("value",value);
+            form.append(field);
+        });
+        $(document.body).append(form);
+        form.submit();
+        }
+            
+    //The SignIn client object
+    var googleUser = {};
+    var startApp = function() {
+        gapi.load('auth2', function(){
+        // Retrieve the singleton for the GoogleAuth library and set up the client.
+        auth2 = gapi.auth2.init({
+          client_id: '331432826-ohvbivkvfi8t6gsblg0270kerse7m404.apps.googleusercontent.com',
+          cookiepolicy: 'single_host_origin'
+        });
+        attachSignin(document.getElementById('googleLogin'));
+      });
+    };
+    
+    //Handle successful sign-ins
+    function attachSignin(element) {
+        console.log(element.id);
+        auth2.attachClickHandler(element, {},
+        function(googleUser){
+            console.log('Email '+ googleUser.getBasicProfile().getEmail());
+            console.log('Signed in as: ' + googleUser.getBasicProfile().getName());
+            post("./welcome", {
+                "method": "google",
+                "name"  : googleUser.getBasicProfile().getName(),
+                "email" : googleUser.getBasicProfile().getEmail(), 
+            });
+        }, function(error){
+            console.log(JSON.stringify(error,undefined,2));
+        });
+    }   
+   
+    function signOut(){
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function (){
+            console.log('User signed out.');
+            document.getElementById('name').innerText = "";
+        });
+    }
+    $(document).ready(function(){
+        startApp();
+    });
+            
+</script>
 
  
    
@@ -109,7 +175,7 @@
                                                                     <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="2"> Female</label>
 				                        </div>
 				                        <div class="form-group">
-				                        	<label class="sr-only" for="form-country">Country (optional)</label>
+				                        	<label for="form-country">Country (optional)</label>
                                                                 <select class="form-control" name="country" style="border-radius: 0 0 4px 4px">
                                                                 <option value="Afghanistan">Afghanistan</option>
                                                                 <option value="Albania">Albania</option>
@@ -345,6 +411,19 @@
                                                             </select>
 
 				                        </div>
+                                                         <div class="form-group">
+                                                            <label class for="form-topics" >Please select min. 3 Topics (mandatory):</label>
+
+                                                            <!--label for="form-topics">Please select min. 3 Topics (optional):</label-->
+                                                            <select class="form-control" name="topics" id="selectTopics" multiple size="1" style="border-radius: 0 0 4px 4px">
+                                                                <option value="Bridal Bouquet"> Bridal Bouquet </option>
+                                                                <option value="Wedding Cake"> Wedding Cakes </option>
+                                                                <option value="Wedding Dresses and Suits"> Wedding Dresses and Suits </option>
+                                                                <option value="Wedding Hair"> Wedding Hair </option>
+                                                                <option value="Wedding Location"> Wedding Locations </option>
+                                                            </select>
+                                
+                                                        </div>
 				                        
 				                       
 				                        <input class="btn btn-success btn-block" type="Submit" value="Sign me up!">
@@ -359,6 +438,10 @@
                                                 <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
                                                     ${success}
                                                 </div>
+                                            </c:if>
+                                            <c:if test="${selectTopicsError != null}">
+                                                <div class="btn bg-danger btn-block" style=" border-radius: 4px; color:black; width:100%; height: 35px; margin: 0px auto;text-align: center;">
+                                                    ${selectTopicsError}</div>
                                             </c:if>
                         	</div>
                         	

@@ -46,7 +46,7 @@ public class followBoardServlet extends HttpServlet {
         followKey.setPinboardsUserEmail(userEmail);
         UserFollowsPinboard followEntry = new UserFollowsPinboard();
         followEntry.setUserFollowsPinboardPK(followKey);
-        followEntry.setIsPermitted(false);//TO-DO: need to trigger a notification to pinboard_user_email
+        followEntry.setIsPermitted(false);
         try{
             UserFollowsPinboardFacade.create(followEntry);
             //Sets status success for followUser

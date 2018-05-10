@@ -5,9 +5,11 @@
  */
 package controller;
 
+import entity.Topics;
 import entity.UserFollowsUser;
 import entity.UserFollowsUserPK;
 import java.io.IOException;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,10 +42,15 @@ public class followUserServlet extends HttpServlet {
         followKey.setPersonBeingFollowed(personBeingFollowed);
         UserFollowsUser followEntry = new UserFollowsUser();
         followEntry.setUserFollowsUserPK(followKey);
-        followEntry.setUserFollowsUserPK(followKey);
-        followEntry.setIsPermitted(false);//TO-DO: need to trigger a notification to the user being followed
+        followEntry.setIsPermitted(false);//A notification is triggered in DB to the user being followed
         try{
             UserFollowsUserFacade.create(followEntry);
+            //As the person being followed has changed, renew session attribute <TODO -- you have to check condition if it is permitted>
+            List<UserFollowsUser> numFollowed = UserFollowsUserFacade.findByFollowerandisPermitted(follower, Boolean.TRUE);
+            Integer followedCount = numFollowed.size();
+            session.setAttribute("followedCount", followedCount);
+                
+            
             //Sets status success for followUser
             request.setAttribute("followstatus","Follow request is sent to " + personBeingFollowed);
             RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/profile.jsp");

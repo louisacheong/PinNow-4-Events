@@ -16,11 +16,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-
+/**
+ *
+ * @author louisacheong
+ */
 @Stateless
 public class UserFacade extends AbstractFacade<User> {
 
-    @PersistenceContext(unitName = "PinNow_4_EventsPU")/*injects a container-managed EM into class, i.e. EJB container will open/close EMs*/
+    @PersistenceContext(unitName = "PinNow_4_EventsPU")
     private EntityManager em;
 
     @Override
@@ -32,9 +35,39 @@ public class UserFacade extends AbstractFacade<User> {
         super(User.class);
     }
     
+    public User findByEmailAndPassword(String email, String password){
+        Query q = em.createNamedQuery("User.findByEmailAndPassword");
+        q.setParameter("email",email);
+        q.setParameter("password",password);
+        return (User)q.getSingleResult();
+    }
 
+    public User findByEmailAndUsername(String email, String username){
+        Query q = em.createNamedQuery("User.findByEmailAndUsername");
+        q.setParameter("username", username);
+        q.setParameter("email", email);
+        return (User)q.getSingleResult();
+    }
     
-    public User auth(String email){
+    public List<User> findByUsername(String username){
+        Query q = em.createNamedQuery("User.findByUsername");
+        q.setParameter("username", username);
+        return q.getResultList();
+    }
+    
+     public List<User> findByLastname(String lastname){
+        Query q = em.createNamedQuery("User.findByLastname");
+        q.setParameter("lastname", lastname);
+        return q.getResultList();
+    }
+    
+    public List<User> findByFirstname(String firstname){
+        Query q = em.createNamedQuery("User.findByFirstname");
+        q.setParameter("firstname", firstname);
+        return q.getResultList();
+    }
+    
+     public User auth(String email){
         if (email == null)
             return null;
         return find(email.trim());
@@ -53,7 +86,7 @@ public class UserFacade extends AbstractFacade<User> {
         return user;
     }
     
-    private String hash(String password){
+     private String hash(String password){
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(password.getBytes("UTF-8"));
@@ -66,41 +99,7 @@ public class UserFacade extends AbstractFacade<User> {
             throw new RuntimeException("SHA-256 not supported");
         }
     }
-    
-    
-    
-    public User findByEmailAndUsername(String email, String userName){
-        Query q = em.createNamedQuery("User.findByEmailAndUsername");
-        q.setParameter("email",email);
-        q.setParameter("username",userName);
-        return (User)q.getSingleResult();
-    }
 
-    public User findByEmailAndPassword(String email, String password){
-        Query q = em.createNamedQuery("User.findByEmailAndPassword");
-        q.setParameter("email",email);
-        q.setParameter("password",password);
-        return (User)q.getSingleResult();
-    }
-    
-    public List<User> findByUsername(String searchText){
-        Query q = em.createNamedQuery("User.findByUsername");
-        q.setParameter("username",searchText);
-        return q.getResultList();
-    }
-    
-    public List<User> findByLastname(String searchText){
-        Query q = em.createNamedQuery("User.findByLastname");
-        q.setParameter("lastname",searchText);
-        return q.getResultList();
-    }
-    
-    public List<User> findByFirstname(String searchText){
-        Query q = em.createNamedQuery("User.findByFirstname");
-        q.setParameter("firstname",searchText);
-        return q.getResultList();
-    }
-   
+
     
 }
-

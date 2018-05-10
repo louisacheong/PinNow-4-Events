@@ -44,9 +44,23 @@ public class UserFollowsUserFacade extends AbstractFacade<UserFollowsUser> {
         return q.getResultList();
     }
     
-    public List<UserFollowsUser> findByPersonBeingFollowed(String personBeingFollowed){
+     public List<UserFollowsUser> findByPersonBeingFollowed(String personBeingFollowed){
         Query q = em.createNamedQuery("UserFollowsUser.findByPersonBeingFollowed");
         q.setParameter("personBeingFollowed",personBeingFollowed);
+        return q.getResultList();
+    }
+    
+    public List<UserFollowsUser> findByPersonBeingFollowedandisPermitted(String personBeingFollowed, Boolean state){
+        Query q = em.createNamedQuery("UserFollowsUser.findByPersonBeingFollowedandisPermitted");
+        q.setParameter("personBeingFollowed",personBeingFollowed);
+        q.setParameter("isPermitted", state);
+        return q.getResultList();
+    }
+    
+     public List<UserFollowsUser> findByFollowerandisPermitted (String follower, Boolean state){
+        Query q = em.createNamedQuery("UserFollowsUser.findByFollowerandisPermitted");
+        q.setParameter("follower", follower);
+        q.setParameter("isPermitted", state);
         return q.getResultList();
     }
 }

@@ -9,7 +9,6 @@ import entity.Pinboards;
 import entity.PinboardsPK;
 import entity.User;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,7 +39,6 @@ public class searchUserandBoardServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String email = (String)session.getAttribute("user");
         String search = request.getParameter("searchtext");
         String searchText = search.trim();
         //Look for users
@@ -51,14 +49,14 @@ public class searchUserandBoardServlet extends HttpServlet {
         List<User> foundUser3 = UserFacade.findByFirstname(searchText);
         Integer foundUser3count = foundUser3.size();
         
-         //Look for boards
+         //Look for boards in DB
         String[] foundkeywords = searchText.split(" ");
         List<Pinboards> boards = PinboardsFacade.findAll();
         
         //create List of boardnames in string for matching search
         String[] boardnames = new String[boards.size()];
         //create Set of foundBoards with unique pinboard elements for found boards
-        Set<Pinboards> foundBoards = new HashSet<Pinboards>();
+        Set<Pinboards> foundBoards = new HashSet<>();
         //Populate List of boardnames
         for (int i=0; i<boards.size(); i++){
             Pinboards board = boards.get(i);
@@ -71,46 +69,38 @@ public class searchUserandBoardServlet extends HttpServlet {
                 //comparison is case-insensitive
                 if(boardnames[i].contains(s)){
                     String boardName = boardnames[i];
-                    PinboardsPK findkey = new PinboardsPK();
-                    findkey.setName(boardName);
-                    findkey.setUserEmail(email);
-                    Pinboards foundBoardsItem = PinboardsFacade.find(findkey);
-                    foundBoards.add(foundBoardsItem);
-                }}}
-        
-        if (foundUser1count >= foundUser2count && foundUser1count >=foundUser3count && foundBoards.size() > 0 ){
+                    List<Pinboards> foundBoardItems = PinboardsFacade.findByName(boardName);
+                    for (int el=0; el<foundBoardItems.size(); el++){
+                    foundBoards.add(foundBoardItems.get(el));
+                }}}}
+        if (foundBoards.size()>0){
+            request.setAttribute("foundBoards", foundBoards);
+            System.out.println("checkpoint1");
+            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/profile.jsp");
+            rd.include(request, response);
+        }else{
+        if (foundUser1count >= foundUser2count && foundUser1count >=foundUser3count){
             request.setAttribute("foundUser",foundUser1);
-            request.setAttribute("foundBoard", foundBoards);
             RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/profile.jsp");
+            System.out.println("checkpoint2");
             rd.include(request, response);  
-        }else if(foundUser2count > foundUser1count && foundUser2count > foundUser3count  && foundBoards.size() > 0){
-            request.setAttribute("foundUser",foundUser2);
-            request.setAttribute("foundBoard", foundBoards);
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/profile.jsp");
-            rd.include(request, response);
-        }else if(foundUser3count > foundUser1count && foundUser3count > foundUser2count  && foundBoards.size() > 0){
-            request.setAttribute("foundUser",foundUser3);
-            request.setAttribute("foundBoard", foundBoards);
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/profile.jsp");
-            rd.include(request, response);
-        }else if(foundUser1count >= foundUser2count && foundUser1count >=foundUser3count && foundBoards.isEmpty()){
-            request.setAttribute("foundUser", foundUser1);
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/profile.jsp");
-            rd.include(request, response);
-        }else if(foundUser2count > foundUser1count && foundUser2count > foundUser3count  && foundBoards.isEmpty()){
+        }else if(foundUser2count > foundUser1count && foundUser2count > foundUser3count){
             request.setAttribute("foundUser",foundUser2);
             RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/profile.jsp");
+            System.out.println("checkpoint3");
             rd.include(request, response);
-        }else if (foundUser3count > foundUser1count && foundUser3count > foundUser2count  && foundBoards.isEmpty()){
+        }else if(foundUser3count > foundUser1count && foundUser3count > foundUser2count){
             request.setAttribute("foundUser",foundUser3);
             RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/profile.jsp");
+            System.out.println("checkpoint4");
             rd.include(request, response);
         }else {
-            request.setAttribute("searcherror","No user/board is found");
+            request.setAttribute("searcherror1","No user/board is found");
             RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/profile.jsp");
             rd.include(request, response);
         }
-        
+        }
     }
 }
+
 

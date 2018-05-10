@@ -16,9 +16,16 @@ body {
     /*background-color: #985f0d;*/
 }
 
+
+
+
 .nav-pills a{
 color:blue;
 }
+
+
+
+
 .masonry{
     column-count:4;
     column-gap: 1em;

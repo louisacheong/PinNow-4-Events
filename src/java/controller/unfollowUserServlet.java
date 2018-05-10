@@ -5,6 +5,7 @@
  */
 package controller;
 
+import entity.Notification;
 import entity.UserFollowsUser;
 import entity.UserFollowsUserPK;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import session.NotificationFacade;
 import session.UserFollowsUserFacade;
 
 /**
@@ -26,8 +28,8 @@ import session.UserFollowsUserFacade;
 @WebServlet(name = "unfollowUserServlet", urlPatterns = {"/unfollowUser"})
 public class unfollowUserServlet extends HttpServlet {
 
-    @EJB
-    private UserFollowsUserFacade UserFollowsUserFacade;
+    @EJB private UserFollowsUserFacade UserFollowsUserFacade;
+    @EJB private NotificationFacade NotificationFacade;
    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,22 +38,26 @@ public class unfollowUserServlet extends HttpServlet {
         String follower = (String)session.getAttribute("user");
         String personBeingFollowed = request.getParameter("following");
         
-        //Look for record entry for PK
+        //Look for record entry in userfollowsuser table and notification table for removal
         UserFollowsUserPK followKey = new UserFollowsUserPK();
         followKey.setFollower(follower);
         followKey.setPersonBeingFollowed(personBeingFollowed);
         UserFollowsUser followEntry = UserFollowsUserFacade.findByPK(follower, personBeingFollowed);
+        Notification  notificationEntry = NotificationFacade.findByRow(follower, personBeingFollowed, "follow user");
         
         try{
             //Remove follower and following record in user_follows_user Table
             UserFollowsUserFacade.remove(followEntry);
+            //Remove notification entry
+            NotificationFacade.remove(notificationEntry);
             //Sets status success for followUser
             request.setAttribute("followstatus","You are no longer following " + personBeingFollowed);
+            
             RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/profile.jsp");
             rd.include(request,response);
         }catch(Exception e){
             //Sets status error for followUser
-            request.setAttribute("followstatus","You cannot unfollow " + personBeingFollowed + "because you are not a follower");
+            request.setAttribute("followstatus","You cannot unfollow " + personBeingFollowed + " because you are not a follower");
             RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/profile.jsp");
             rd.include(request,response);
         }

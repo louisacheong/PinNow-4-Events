@@ -36,10 +36,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname")
     , @NamedQuery(name = "User.findByGender", query = "SELECT u FROM User u WHERE u.gender = :gender")
     , @NamedQuery(name = "User.findByCountry", query = "SELECT u FROM User u WHERE u.country = :country")
+    , @NamedQuery(name = "User.findBySelectedtopics", query = "SELECT u FROM User u WHERE u.selectedtopics = :selectedtopics")
+    , @NamedQuery(name = "User.findByIsAdmin", query = "SELECT u FROM User u WHERE u.isAdmin = :isAdmin")
     , @NamedQuery(name = "User.findByLastLogin", query = "SELECT u FROM User u WHERE u.lastLogin = :lastLogin")
     , @NamedQuery(name = "User.findByLoginCounter", query = "SELECT u FROM User u WHERE u.loginCounter = :loginCounter")
-    , @NamedQuery(name = "User.findByIsAdmin", query = "SELECT u FROM User u WHERE u.isAdmin =:isAdmin")
-    , @NamedQuery(name = "User.findByEmailAndUsername", query = "SELECT u FROM User u WHERE u.email = :email AND u.username =:username")})
+    , @NamedQuery(name = "User.findByEmailAndUsername", query = "SELECT u FROM User u WHERE u.email = :email AND u.username = :username")
+})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -77,15 +79,20 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "country")
     private String country;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "selectedtopics")
+    private String selectedtopics;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "is_admin")
+    private boolean isAdmin;
     @Column(name = "last_login")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
     @Column(name = "login_counter")
     private Integer loginCounter;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "is_admin")
-    public boolean isAdmin;
 
     public User() {
     }
@@ -94,13 +101,15 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public User(String email, String username, String password, String firstname, String lastname, boolean gender) {
+    public User(String email, String username, String password, String firstname, String lastname, boolean gender, String selectedtopics, boolean isAdmin) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.gender = gender;
+        this.selectedtopics = selectedtopics;
+        this.isAdmin = isAdmin;
     }
 
     public String getEmail() {
@@ -158,7 +167,15 @@ public class User implements Serializable {
     public void setCountry(String country) {
         this.country = country;
     }
-    
+
+    public String getSelectedtopics() {
+        return selectedtopics;
+    }
+
+    public void setSelectedtopics(String selectedtopics) {
+        this.selectedtopics = selectedtopics;
+    }
+
     public boolean getIsAdmin() {
         return isAdmin;
     }

@@ -1,6 +1,7 @@
 
 <%@ include file='header.jspf' %>
-<script src="js/welcome.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
  <script>
     window.pAsyncInit = function() {
         PDK.init({
@@ -26,35 +27,67 @@
                     <h2>Trending Topics</h2></div>
             </div>
 
-            
-            <div class="col-sm-8 col-md-8"><br>  
-                <form action="./viewProfile" method="post"  accept-charset="UTF-8" role="form" id="topics-form" class="form-topics">    
-                    <div class="form-group">
-                            <select name="topics" id="selectTopics" multiple size="3">
-                                <c:forEach var="topic" items="${topic}" varStatus="iter">
-                                    <option value="<c:out value="${topic.name}"/>" > <c:out value="${topic.name}"/></option>
-                                </c:forEach>
-                            </select>
-                        <input type="submit" class="btn btn-default btn-block" name="submit" value="Select min. 3 topics">
-                    </div>
+            <div class="row">
+            <div class="col-sm-6 col-md-6"> 
+                <br>
+                <p></p>
+                <form class="navbar-form navbar-left" action="./searchtrends">
+                <!-- TODO: activate search function-->
+                <div class="input-group-btn">
+                    <input type="search" class="form-control pull-left" style="width:85%" id="search" placeholder="Search..." />
+                   
+                        <span class="pull-left"><a class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></a></span>
+                    
+                </div>
                 </form>
-                 <c:if test="${selectTopicsError != null}">
-                    <div class="btn bg-danger btn-block" style=" border-radius: 4px; color:black; width:100%; height: 35px; margin: 0px auto;text-align: center;">
-                        ${selectTopicsError}</div>
-                    </c:if>
+                    
             </div>
-
- 
+            <div class="col-sm-6 col-md-6">
                     <ul class="nav navbar-nav navbar-right">
                         <h3><c:out value="${sessionScope.user}"/></h3>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell fa-fw" style="color:white"></i> Notifications <i class="fa fa-caret-down"></i></a>
+                            <ul class="dropdown-menu dropdown-alerts" style="width:310px;padding: 10px 10px 10px 10px;">
+                       <c:forEach var="f" items="${followers}" varStatus="iter">
+                        <li>
+                            <div style="padding: 3px 0px 3px 0px;">
+                                <span class="fa fa-chain fa-fw" style="color:gray;"></span>
+                                <span style="color:gray;"><c:out value="${f.follower}"/></span>
+                                <span style="color:gray;">requests to follow you </span>
+                                <p>
+                                    <a href="${pageContext.request.contextPath}/allowFollowUser?follower=${f.follower}" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ok-circle"> Allow </span></a>
+                                    <a href="${pageContext.request.contextPath}/blockFollowUser?follower=${f.follower}" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"> Block</span></a>
+                                    <span class="pull-right text-muted small">12 minutes ago</span></p>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        </c:forEach>
+                         <c:forEach var="b" items="${pinboards}" varStatus="iter">
+                        <li>
+                            <div style="padding: 3px 0px 3px 0px;">
+                                <span class="fa fa-chain fa-fw" style="color:gray;"></span>
+                                <span style="color:gray;"><c:out value="${b.follower}"/></span>
+                                <span style="color:gray;">requests to follow your board <c:out value="${b.pinboardsName}"/></span>
+                                <p>
+                                    <a href="${pageContext.request.contextPath}/allowFollowBoard?follower=<c:out value="${b.follower}"/>&pinboard=<c:out value="${b.pinboardsName}"/>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ok-circle"> Allow </span></a>
+                                    <a href="${pageContext.request.contextPath}/blockFollowBoard?follower=<c:out value="${b.follower}"/>&pinboard=<c:out value="${b.pinboardsName}"/>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"> Block</span></a>
+                                    
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        </c:forEach>
+                       
+                        </ul>
+                        </li>
+                        <li><a href="${pageContext.request.contextPath}/viewProfile"><i class="fa fa-user fa-fw"></i> User Profile </a></li>
                         
-                        <li><a href="${pageContext.request.contextPath}/editUser"><i class="fa fa-gear fa-fw"></i></a></li>
-                        <li><a href="${pageContext.request.contextPath}/Logout"><i class="fa fa-sign-out fa-fw"></i></a></li>
+                        <li><a href="${pageContext.request.contextPath}/editUser"><i class="fa fa-gear fa-fw"></i> Settings </a></li>
+                        <li><a href="${pageContext.request.contextPath}/Logout"><i class="fa fa-sign-out fa-fw"></i> Log out </a></li>
 
                     </ul>
-               
-            </div>
-                        <br>
+                        
+            </div></div>
+                        
 <div class="container-fluid">                       
 <div class="masonry">
         <div class="item">

@@ -51,5 +51,10 @@ public class PinboardsFacade extends AbstractFacade<Pinboards> {
         return q.getResultList();
     }
     
+    public List<Pinboards> findAll(){
+        Query q=em.createNamedQuery("Pinboards.findAll");
+        return q.getResultList();
+    }
+    
     
 }

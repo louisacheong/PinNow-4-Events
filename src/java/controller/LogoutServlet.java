@@ -39,8 +39,9 @@ public class LogoutServlet extends HttpServlet {
         LoginKey.setLastLogin(lastLogin);
         //sets still_logged_in field in TrackLogin entry to False
         TrackLogin LoginEntry = TrackLoginFacade.find(LoginKey);
-        LoginEntry.setStillLoggedIn(true);
-        System.out.println(LoginEntry.getStillLoggedIn());
+        System.out.println("still logged in?" + LoginEntry.getStillLoggedIn());
+        LoginEntry.setStillLoggedIn(false);
+        System.out.println("still logged in?" + LoginEntry.getStillLoggedIn());
         TrackLoginFacade.edit(LoginEntry);
         session.invalidate();
         RequestDispatcher rd = request.getRequestDispatcher("index.jsp");

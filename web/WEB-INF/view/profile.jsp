@@ -32,170 +32,57 @@
             
                 <div class="col-sm-12">
                    <div class="row"> 
-                  <ul class="nav navbar-top-links navbar-right">
-                        <h3 style="color:gray;"><c:out value="${sessionScope.user}"/></h3>
-                        <p>
+                   <ul class="nav navbar-nav navbar-right">
+                        <h3><c:out value="${sessionScope.user}"/></h3>
+                         <p>
                             <a data-pin-do="buttonFollow" href="https://www.pinterest.com/pinterest/"><c:out value="${sessionScope.followerCount}"/> Followers</a>
                             <a data-pin-do="buttonFollow" href="https://www.pinterest.com/pinterest/"><c:out value="${sessionScope.followedCount}"/> Followed</a>
                         </p>
-               
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-tasks fa-fw" style="color:gray"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-tasks">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell fa-fw" style="color:gray"></i> Notifications <i class="fa fa-caret-down"></i></a>
+                            <ul class="dropdown-menu dropdown-alerts" style="width:310px;padding: 10px 10px 10px 10px;">
+                       <c:forEach var="f" items="${followers}" varStatus="iter">
                         <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 1</strong>
-                                        <span class="pull-right text-muted">40% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
+                            <div style="padding: 3px 0px 3px 0px;">
+                                <span class="fa fa-chain fa-fw" style="color:gray;"></span>
+                                <span style="color:gray;"><c:out value="${f.follower}"/></span>
+                                <span style="color:gray;">requests to follow you </span>
+                                <p>
+                                    <a href="${pageContext.request.contextPath}/allowFollowUser?follower=<c:out value="${f.follower}"/>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ok-circle"> Allow </span></a>
+                                    <a href="${pageContext.request.contextPath}/blockFollowUser?follower=<c:out value="${f.follower}"/>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"> Block</span></a>
+                                    
+                            </div>
                         </li>
                         <li class="divider"></li>
+                        </c:forEach>
+                        <c:forEach var="b" items="${pinboards}" varStatus="iter">
                         <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 2</strong>
-                                        <span class="pull-right text-muted">20% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                            <span class="sr-only">20% Complete</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
+                            <div style="padding: 3px 0px 3px 0px;">
+                                <span class="fa fa-chain fa-fw" style="color:gray;"></span>
+                                <span style="color:gray;"><c:out value="${b.follower}"/></span>
+                                <span style="color:gray;">requests to follow your board <c:out value="${b.pinboardsName}"/></span>
+                                <p>
+                                    <a href="${pageContext.request.contextPath}/allowFollowBoard?follower=<c:out value="${b.follower}"/>&pinboard=<c:out value="${b.pinboardsName}"/>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ok-circle"> Allow </span></a>
+                                    <a href="${pageContext.request.contextPath}/blockFollowBoard?follower=<c:out value="${b.follower}"/>&pinboard=<c:out value="${b.pinboardsName}"/>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"> Block</span></a>
+                                    
+                            </div>
                         </li>
                         <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 3</strong>
-                                        <span class="pull-right text-muted">60% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                            <span class="sr-only">60% Complete (warning)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
+                        </c:forEach>
+                        
+                       
+                        </ul>
                         </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 4</strong>
-                                        <span class="pull-right text-muted">80% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                            <span class="sr-only">80% Complete (danger)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Tasks</strong>
-                                <i class="fa fa-angle-right" style="color:gray"></i>
-                            </a>
-                        </li>
+                                   
+                <li><a href="${pageContext.request.contextPath}/viewProfile"><i class="fa fa-user fa-fw" style="color:gray"></i> User Profile</a></li>
+                <li><a href="${pageContext.request.contextPath}/editUser"><i class="fa fa-gear fa-fw" style="color:gray"></i> Settings</a></li>
+                <li><a href="${pageContext.request.contextPath}/Logout"><i class="fa fa-sign-out fa-fw" style="color:gray"></i> Logout</a></li>
+                    
+                
                     </ul>
-                    <!-- /.dropdown-tasks -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell fa-fw" style="color:gray"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-alerts">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-comment fa-fw" style="color:gray"></i> New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-twitter fa-fw" style="color:gray;"></i> 3 New Followers
-                                    <span class="pull-right text-muted small">12 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw" style="color:gray"></i> Message Sent
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-tasks fa-fw" style="color:gray"></i> New Task
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-upload fa-fw" style="color:gray"></i> Server Rebooted
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right" style="color:gray"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-alerts -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw" style="color:gray"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="${pageContext.request.contextPath}/viewProfile"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="${pageContext.request.contextPath}/editUser"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="${pageContext.request.contextPath}/Logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-                  </ul></div></div>
+             
+                
+                </div></div>
                     <div class="col-sm-12">
                         <div class="row"> 
                         <div class="jumbotron">
@@ -211,7 +98,7 @@
                                 </span>
                                 </form>
                                 </div></div>
-                                <div class="col-sm-2 col-md-2">
+                                <div class="col-sm-6 col-md-6">
                                 <c:if test= "${foundUser != null}">
                                 <table id="userTable" >
                                 <c:forEach var="foundUser" items="${foundUser}" varStatus="iter">
@@ -224,31 +111,35 @@
                                                      <h4><c:out value="${foundUser.country}"></c:out></h4>
                                                 
                                             <p>
-                                            <a href="${pageContext.request.contextPath}/followUser?following=<c:out value="${foundUser.email}"/>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Follow</a>
-                                            <a href="${pageContext.request.contextPath}/unfollowUser?following=<c:out value="${foundUser.email}"/>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span> Unfollow</a>
+                                            <a href="${pageContext.request.contextPath}/followUser?following=<c:out value="${foundUser.email}"/>" class="btn btn-xs btn-default"><i class="fa fa-chain fa-fw"></i> Follow</a>
+                                            <a href="${pageContext.request.contextPath}/unfollowUser?following=<c:out value="${foundUser.email}"/>" class="btn btn-xs btn-default"><i class="fa fa-chain-broken fa-fw"></i> Unfollow</a>
                                             </p>
                                         </td>         
                                     </tr>
                                 </c:forEach>
                                 </table>
-                                </c:if>
-                                <c:if test= "${foundBoard != null}">
-                                <table id="boardTable" width="100%" class="table-hover table-striped">
-                                    <c:forEach var="board" items="${foundBoard}" varStatus="status">
-                                        <tr>
-                                        <td>
-                                            <h3><c:out value="${board.pinboardsPK.name}"></c:out></h3>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <a href="${pageContext.request.contextPath}/followBoard?following=<c:out value="${board.pinboardsPK.userEmail}"/>&board=${board.pinboardsPK.name}" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Follow</a>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <a href="${pageContext.request.contextPath}/unfollowBoard?following=<c:out value="${board.pinboardsPK.userEmail}"/>&board=${board.pinboardsPK.name}" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span> Unfollow</a>
-                                        </td>
-                                        </tr>
-                                    </c:forEach>
-                                </table>
-                                </c:if>
+                                </c:if></div></div>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6"></div> 
+                                <div class="col-sm-6 col-md-6">
+                                <c:if test="${foundBoards != null}">
+                            <div><h3>Results : </h3></div>
+                            <table id="boardTable" width="100%" class="table-hover table-striped">
+                            <c:forEach var="p" items="${foundBoards}" varStatus="iter">
+                                <tr class="${((iter.index % 2) == 0) ? 'lightBlue' : 'white'}">
+                                <td>
+                                    <h3><c:out value="${p.pinboardsPK.name}"></c:out></h3>
+                                </td>
+                                <td style="text-align: center;">
+                                    <a href="${pageContext.request.contextPath}/followBoard?following=<c:out value="${p.pinboardsPK.userEmail}"/>&board=<c:out value="${p.pinboardsPK.name}"/>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-heart"></span> Follow</a>
+                                </td>
+                                <td style="text-align: center;">
+                                    <a href="${pageContext.request.contextPath}/unfollowBoard?following=<c:out value="${p.pinboardsPK.userEmail}"/>&board=<c:out value="${p.pinboardsPK.name}"/>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span> Unfollow</a>
+                                </td>
+                                </tr>
+                            </c:forEach>
+                            </table>
+                            </c:if>
                                 <c:if test="${searcherror != null}">
                                     <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
                                     ${searcherror}</div>
@@ -476,7 +367,7 @@
                                             <div class="masonry">
                                                 <c:forEach var="p" items="${board.pinsCollection}" varStatus="iter">
                                                 <div class="item">
-                                                    <img src="${pageContext.request.contextPath}/images?pinName=${p.pinsPK.name}"></div>
+                                                    <img src="${pageContext.request.contextPath}/images?pinName=${p.pinsPK.name}" style="width:100%"></div>
                                                 </c:forEach>
                                                
                                             </div>

@@ -5,6 +5,7 @@
  */
 package controller;
 
+import entity.Notification;
 import entity.TrackLogin;
 import entity.TrackLoginPK;
 import entity.User;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.RequestDispatcher;
 import login_session.LoginInfo;
+import session.NotificationFacade;
 import session.TopicsFacade;
 import session.TrackLoginFacade;
 import session.UserFacade;
@@ -37,6 +39,7 @@ public class LoginServlet extends HttpServlet {
     @EJB private TrackLoginFacade TrackLoginFacade;
     @EJB private UserFollowsUserFacade UserFollowsUserFacade;
     @EJB private TopicsFacade TopicsFacade;
+    @EJB private NotificationFacade NotificationFacade;
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -83,13 +86,23 @@ public class LoginServlet extends HttpServlet {
                 
                 
                 //Get interesting stats for welcome page
+                List<Notification> followers = NotificationFacade.findByUserBeingFollowed(email);
+                if(!followers.isEmpty()){
+                    session.setAttribute("followers", followers);
+                }
+                List<Notification> pinboards = NotificationFacade.findByPinboardBeingFollowed(email);
+                if(!pinboards.isEmpty()){
+                    session.setAttribute("pinboards", pinboards);
+                }
+                
+                System.out.println(followers);
                 List<TrackLogin> login = TrackLoginFacade.LoginsPast2Weeks(email);
                 Integer loginCount = login.size();
                 session.setAttribute("loginCount",loginCount);
-                List<UserFollowsUser> numFollower = UserFollowsUserFacade.findByPersonBeingFollowed(email);
+                List<UserFollowsUser> numFollower = UserFollowsUserFacade.findByPersonBeingFollowedandisPermitted(email, Boolean.TRUE);
                 Integer followerCount = numFollower.size();
                 session.setAttribute("followerCount",followerCount);
-                List<UserFollowsUser> numFollowed = UserFollowsUserFacade.findByFollower(email);
+                List<UserFollowsUser> numFollowed = UserFollowsUserFacade.findByFollowerandisPermitted(email, Boolean.TRUE);
                 Integer followedCount = numFollowed.size();
                 session.setAttribute("followedCount", followedCount);
                 List<Topics> createdTopics = TopicsFacade.findAll();
@@ -120,6 +133,7 @@ public class LoginServlet extends HttpServlet {
                 TrackLoginFacade.create(loginEntry);
                 
                 //Get interesting stats for admin page
+                
                 List<TrackLogin> login = TrackLoginFacade.LoginsPast2Weeks(email);
                 Integer loginCount = login.size();
                 session.setAttribute("loginCount",loginCount);
@@ -129,10 +143,10 @@ public class LoginServlet extends HttpServlet {
                 List<User> totalusers = UserFacade.findAll();
                 Integer regUsersCount = totalusers.size();
                 session.setAttribute("regUsersCount",regUsersCount);
-                List<UserFollowsUser> numFollower = UserFollowsUserFacade.findByPersonBeingFollowed(email);
+                List<UserFollowsUser> numFollower = UserFollowsUserFacade.findByPersonBeingFollowedandisPermitted(email, Boolean.TRUE);
                 Integer followerCount = numFollower.size();
                 session.setAttribute("followerCount",followerCount);
-                List<UserFollowsUser> numFollowed = UserFollowsUserFacade.findByFollower(email);
+                List<UserFollowsUser> numFollowed = UserFollowsUserFacade.findByFollowerandisPermitted(email, Boolean.TRUE);
                 Integer followedCount = numFollowed.size();
                 session.setAttribute("followedCount", followedCount);
                 List<Topics> createdTopics = TopicsFacade.findAll();
@@ -173,13 +187,23 @@ public class LoginServlet extends HttpServlet {
                 loginEntry.setTrackLoginPK(loginKey);
                 TrackLoginFacade.create(loginEntry);
                 //Get interesting stats for welcome page
+                
+                List<Notification> followers = NotificationFacade.findByUserBeingFollowed(email);
+                if(!followers.isEmpty()){
+                    session.setAttribute("followers", followers);
+                }
+                List<Notification> pinboards = NotificationFacade.findByPinboardBeingFollowed(email);
+                if(!pinboards.isEmpty()){
+                    session.setAttribute("pinboards", pinboards);
+                }
+                   
                 List<TrackLogin> login = TrackLoginFacade.LoginsPast2Weeks(email);
                 Integer loginCount = login.size();
                 session.setAttribute("loginCount",loginCount);
-                List<UserFollowsUser> numFollower = UserFollowsUserFacade.findByPersonBeingFollowed(email);
+                List<UserFollowsUser> numFollower = UserFollowsUserFacade.findByPersonBeingFollowedandisPermitted(email, Boolean.TRUE);
                 Integer followerCount = numFollower.size();
                 session.setAttribute("followerCount",followerCount);
-                List<UserFollowsUser> numFollowed = UserFollowsUserFacade.findByFollower(email);
+                List<UserFollowsUser> numFollowed = UserFollowsUserFacade.findByFollowerandisPermitted(email, Boolean.TRUE);
                 Integer followedCount = numFollowed.size();
                 session.setAttribute("followedCount", followedCount);
                 List<Topics> createdTopics = TopicsFacade.findAll();
@@ -218,10 +242,10 @@ public class LoginServlet extends HttpServlet {
                 List<User> totalusers = UserFacade.findAll();
                 Integer regUsersCount = totalusers.size();
                 session.setAttribute("regUsersCount",regUsersCount);
-                List<UserFollowsUser> numFollower = UserFollowsUserFacade.findByPersonBeingFollowed(email);
+                List<UserFollowsUser> numFollower = UserFollowsUserFacade.findByPersonBeingFollowedandisPermitted(email,Boolean.TRUE);
                 Integer followerCount = numFollower.size();
                 session.setAttribute("followerCount",followerCount);
-                List<UserFollowsUser> numFollowed = UserFollowsUserFacade.findByFollower(email);
+                List<UserFollowsUser> numFollowed = UserFollowsUserFacade.findByFollowerandisPermitted(email, Boolean.TRUE);
                 Integer followedCount = numFollowed.size();
                 session.setAttribute("followedCount", followedCount);
                 List<Topics> createdTopics = TopicsFacade.findAll();
@@ -235,11 +259,7 @@ public class LoginServlet extends HttpServlet {
             }
         }
     }
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doPost(request, response);
-    }
+    
    
 }
 

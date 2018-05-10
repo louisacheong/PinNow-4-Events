@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import session.PinboardsFacade;
 import session.PinsFacade;
+import session.UserFacade;
 
 /**
  *
@@ -36,6 +37,8 @@ import session.PinsFacade;
 public class ViewProfileServlet extends HttpServlet {
     @EJB private PinsFacade PinsFacade;
     @EJB private PinboardsFacade PinboardsFacade;
+    @EJB private UserFacade UserFacade;
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -45,17 +48,15 @@ public class ViewProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         String email = (String)session.getAttribute("user");
+        User user = UserFacade.find(email);
         try
-        {
-            String selected_Topics[] = request.getParameterValues("topics") ;
-            if (selected_Topics.length < 3){
-                request.setAttribute("selectTopicsError", "Error: Please choose at least 3 Topics!");
-                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/welcome.jsp");
-                rd.include(request,response);
-            }else{
+        {   
+            //include info on selectedtopics
+            String topicsinstring = user.getSelectedtopics();
+            String[] selected_Topics = topicsinstring.split(",");
             for(int i=0; i< selected_Topics.length ; i++){
                 session.setAttribute("selectedTopic"+ (i+1), selected_Topics[i]);
-            }
+                }
             //include info on pins 
             List<Pins> pinlist = PinsFacade.findByUserEmail(email);
             session.setAttribute("pins", pinlist);
@@ -65,9 +66,7 @@ public class ViewProfileServlet extends HttpServlet {
             session.setAttribute("boards", pinboards);
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/profile.jsp");
             rd.forward(request,response);
-        }}
-        catch(Exception exception)
-        {
+        }catch (Exception exception){
             exception.printStackTrace();
         }
     }

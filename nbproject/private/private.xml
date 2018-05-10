@@ -19,26 +19,35 @@
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/view/header.jspf</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/entity/UserFollowsUserPK.java</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/savePinServlet.java</file>
-            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/view/profile.jsp</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/searchUserandBoardServlet.java</file>
-            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/entity/User.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/view/profile.jsp</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/entity/Notification.java</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/session/AbstractFacade.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/blockFollowBoardServlet.java</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/editBoardServlet.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/css/form-elements.css</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/LogoutServlet.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/allowFollowBoardServlet.java</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/setup/sampleData.sql</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/session/PinsFacade.java</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/entity/Pinboards.java</file>
-            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/web.xml</file>
-            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/entity/PinboardsPK.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/session/NotificationFacade.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/blockFollowUserServlet.java</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/setup/createSchemanew.sql</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/entity/PinboardsPK.java</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/createTopicServlet.java</file>
-            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/view/editBoard.jsp</file>
-            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/searchBoardServlet.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/css/style.css</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/session/UserFollowsPinboardFacade.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/view/editBoard.jsp</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/ViewProfileServlet.java</file>
-            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/removePinServlet.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/followUserServlet.java</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/editPinServlet.java</file>
-            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/followBoardServlet.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/entity/UserFollowsUser.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/index.jsp</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/LoginServlet.java</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/view/admin.jsp</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/src/java/controller/allowFollowUserServlet.java</file>
+            <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/css/admin.css</file>
             <file>file:/Users/louisacheong/NetBeansProjects/PinNow-4-Events/web/WEB-INF/view/welcome.jsp</file>
         </group>
     </open-files>
