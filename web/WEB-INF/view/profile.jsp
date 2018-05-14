@@ -90,7 +90,7 @@
                                 <div class="col-sm-6 col-md-6">    
                                 <div class="input-group custom-search-form">
                                 <form method="POST" action="./searchUserandBoard" accept-charset="UTF-8" role="form" id="custom-search-form" class="custom-search-form">
-                                <input type="text" name="searchtext" class="form-control" placeholder="Search for User...">
+                                <input type="text" name="searchtext" class="form-control" placeholder="Search for User/Board...">
                                 <span class="input-group-btn">
                                 <input class="btn btn-default" type="submit" value="Search">
                                     <i class="fa fa-search"></i>
