@@ -18,20 +18,20 @@ INSERT INTO user (username, email, password, firstname, lastname, gender, countr
 VALUES ('bobby', 'bobby@pin.net', '69ff8042237aeef5ddf1ced10e851bc6104e1ebb15a304061dba43ea10106fa9', 'Robin','Bellemans', false, 'Belgium', 'Wedding Dresses and Suits, Wedding Cake, Wedding Locations');
 
 INSERT INTO user (username, email, password, firstname, lastname, gender, country, selectedtopics) 
-VALUES ('lmurtfeld', 'louisa@pin.net', 'afbdbfd5b8fbcb65f17a112222b82176077ab234cde34d4062138365951642fa', 'Louisa', 'Murtfeld',true, 'Belgium', 'Bridal Bouquet, Wedding Dresses and Suits, Wedding Hair, Wedding Locations');
+VALUES ('mmurtfeld', 'miriam@pin.net', '263df4565e2ff1a307063e087e68d88190ad01ae3dbb164aa1e8ec6781b9fd26', 'Miriam', 'Murtfeld',true, 'Belgium', 'Bridal Bouquet, Wedding Dresses and Suits, Wedding Hair, Wedding Locations');
 
 INSERT INTO user (username, email, password, firstname, lastname, gender, country, selectedtopics) 
 VALUES ('lcheong', 'cheong.louisa@gmail.com', '2a59cb2299fc2292e014f8ac0c37ee276bbcb06f43178ce82bf684af8196e05a', 'Louisa', 'Cheong',true, 'Belgium', 'Bridal Bouquet, Wedding Dresses and Suits, Wedding Hair, Wedding Locations');
 
 
 INSERT INTO user_follows_user(isPermitted, follower, personBeingFollowed) 
-VALUES (0, 'admin@pin.net', 'louisa@pin.net');
+VALUES (0, 'admin@pin.net', 'miriam@pin.net');
 
 INSERT INTO user_follows_user(isPermitted, follower, personBeingFollowed) 
-VALUES (0, 'bobby@pin.net', 'louisa@pin.net');
+VALUES (0, 'adrian@gmail.com', 'miriam@pin.net');
 
 INSERT INTO user_follows_user(isPermitted, follower, personBeingFollowed) 
-VALUES (0, 'louisa@pin.net', 'admin@pin.net');
+VALUES (0, 'miriam@pin.net', 'admin@pin.net');
 
 INSERT INTO topics(name)
 VALUES ('Bridal Bouquet');

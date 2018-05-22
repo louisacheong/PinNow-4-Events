@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import session.PinboardsFacade;
 import session.PinsFacade;
+import session.TopicsFacade;
 import session.UserFacade;
 
 /**
@@ -38,6 +39,7 @@ public class ViewProfileServlet extends HttpServlet {
     @EJB private PinsFacade PinsFacade;
     @EJB private PinboardsFacade PinboardsFacade;
     @EJB private UserFacade UserFacade;
+    @EJB private TopicsFacade TopicsFacade;
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,8 +56,11 @@ public class ViewProfileServlet extends HttpServlet {
             //include info on selectedtopics
             String topicsinstring = user.getSelectedtopics();
             String[] selected_Topics = topicsinstring.split(",");
+            
             for(int i=0; i< selected_Topics.length ; i++){
                 session.setAttribute("selectedTopic"+ (i+1), selected_Topics[i]);
+                List<Pins> selTopicPins = PinsFacade.findByTopicsNameandUserEmail(selected_Topics[i],email);
+                session.setAttribute("selectedTopicPins"+ (i+1), selTopicPins);
                 }
             //include info on pins 
             List<Pins> pinlist = PinsFacade.findByUserEmail(email);

@@ -38,11 +38,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Notification.findByPinboardsName", query = "SELECT n FROM Notification n WHERE n.pinboardsName = :pinboardsName")
     , @NamedQuery(name = "Notification.findByIsPermitted", query = "SELECT n FROM Notification n WHERE n.isPermitted = :isPermitted")
     , @NamedQuery(name = "Notification.findByDescription", query = "SELECT n FROM Notification n WHERE n.description = :description")
+    , @NamedQuery(name = "Notification.findByRow", query = "SELECT n FROM Notification n WHERE n.follower = :follower AND n.beingFollowed = :beingFollowed AND n.description = :description")
     , @NamedQuery(name = "Notification.findByPinboardsRow", query = "SELECT n FROM Notification n WHERE n.follower = :follower AND n.beingFollowed = :beingFollowed AND n.pinboardsName = :pinboardsName AND n.description = :description")
-    , @NamedQuery(name = "Notification.findByPinboardBeingFollowed", query = "SELECT n FROM Notification n WHERE n.beingFollowed = :beingFollowed AND n.description = :description")
-
-})
-
+    , @NamedQuery(name = "Notification.findByPinboardBeingFollowed", query = "SELECT n FROM Notification n WHERE n.beingFollowed = :beingFollowed AND n.description = :description")})
 public class Notification implements Serializable {
 
     private static final long serialVersionUID = 1L;

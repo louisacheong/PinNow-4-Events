@@ -30,7 +30,7 @@ public class NotificationFacade extends AbstractFacade<Notification> {
     public NotificationFacade() {
         super(Notification.class);
     }
-    
+       
     public List<Notification> findByFollower (String follower){
         Query q=em.createNamedQuery("Notification.findByFollower");
         q.setParameter("follower", follower);
@@ -68,6 +68,7 @@ public class NotificationFacade extends AbstractFacade<Notification> {
         return q.getResultList();
     }
    
+    
     
     
     

@@ -5,7 +5,7 @@
 --%>
 <%@ include file='header.jspf' %>
 <link rel="stylesheet" href="css/admin.css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
 
 
@@ -143,16 +143,17 @@
                                     <i class="fa fa-file fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
-                                    <div>New Boards!</div>
+                                    <div class="huge"><c:out value="${usedBoardsCount}"/></div>
+                                    <div>Boards!</div>
+                                    <br><p></p>
                                 </div>
                                 
                             </div>
                         </div>
                         
                         <div class="panel-footer">
-                            <span class="pull-left">Per User</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <span class="pull-left">Average Per User</span>
+                            <span class="pull-right"><c:out value="${AvgBoard}"/></span>
                             <div class="clearfix"></div>
                         </div>
                         
@@ -167,14 +168,15 @@
                                     <i class="fa fa-map-pin fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
-                                    <div>New Pins!</div>
+                                    <div class="huge"><c:out value="${usedPinsCount}"/></div>
+                                    <div>Pins!</div>
+                                    <br><p></p>
                                 </div>
                             </div>
                         </div>
                          <div class="panel-footer">
-                            <span class="pull-left">Per User</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <span class="pull-left">Average Per User</span>
+                            <span class="pull-right"><c:out value="${AvgPin}"/></i></span>
                             <div class="clearfix"></div>
                         </div>
                         
@@ -188,7 +190,7 @@
                                     <i class="fa fa-comments fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">5</div>
+                                    <div class="huge"><c:out value="${createdTopicsCount}"/></div>
                                     <br>
                                     <br>
                                     <br>
@@ -221,23 +223,30 @@
                                 </span>
                                 </form>
                                 </div>
-                            <table id="userTable">
+                            <table id="userTable" style="width:100%">
                                 <c:forEach var="foundUser" items="${foundUser}" varStatus="iter">
                                     <tr class="${((iter.index % 2) == 0) ? 'lightBlue' : 'white'}">
-                                        <td>
+                                        <td align="center">
                                             <h3><img src="${initParam.userImagePath}${foundUser.username}.jpg"
-                                                     alt="${foundUser.username}" class="img-rounded img-responsive" height="500px" width="386px"><c:out value="${foundUser.email}"></c:out></h3>
+                                                     alt="${foundUser.username}" align="middle" class="img-rounded img-responsive center-block" height="500px" width="386px"><c:out value="${foundUser.email}"></c:out></h3>
                                                      <h3><c:out value="${foundUser.username}"/></h3>
                                                      <h4><c:out value="${foundUser.country}"/></h4>
                                             <p>
-                                            
-                                            <a href="${pageContext.request.contextPath}/removeUser" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-remove"></span>Remove User</a>
+                                            <c:choose>
+                                                <c:when test="${not foundUser.isBlocked}">
+                                                    <a href="${pageContext.request.contextPath}/blockUser?user=<c:out value="${foundUser.email}"/>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"></span>Block User</a>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a href="${pageContext.request.contextPath}/unblockUser?user=<c:out value="${foundUser.email}"/>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ok-circle"></span>Unblock User</a>
+                                                    <a href="${pageContext.request.contextPath}/removeUser?user=<c:out value="${foundUser.email}"/>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-remove"></span>Remove User</a>
+                                                </c:otherwise>
+                                            </c:choose>
                                             <c:choose>
                                             <c:when test="${not foundUser.isAdmin}">
-                                                <a href="${pageContext.request.contextPath}/promoteUser" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-eye-open"></span>Promote to Admin</a>
+                                                <a href="${pageContext.request.contextPath}/promoteUser?user=<c:out value="${foundUser.email}"/>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-eye-open"></span>Promote to Admin</a>
                                             </c:when>
                                             <c:otherwise>
-                                                <a href="${pageContext.request.contextPath}/demoteUser" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-eye-close"></span>Demote to User</a>
+                                                <a href="${pageContext.request.contextPath}/demoteUser?user=<c:out value="${foundUser.email}"/>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-eye-close"></span>Demote to User</a>
                                             </c:otherwise>
                                             </c:choose>
                                                 
@@ -250,7 +259,14 @@
                                     <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
                                     ${searcherror}</div>
                                 </c:if>
-                                
+                                <c:if test="${block_remove_info != null}">
+                                    <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
+                                    ${block_remove_info}</div>
+                                </c:if>
+                                <c:if test="${promote_demote_info != null}">
+                                    <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
+                                    ${promote_demote_info}</div>
+                                </c:if>
                             </div>
                         </div>
                         </div>
@@ -264,10 +280,13 @@
                                     <input type="text" name="newtopic" class="form-control" placeholder="Topic Name...">
                                     
                                     <br>
-                                    <input class="btn btn-default" type="submit" value="Create"><i class="fa fa-plus-circle"></i>
+                                    <input class="btn btn-default" type="submit" value="Create">
                                 </form>
                                 
-                                <p><c:out value="${newTopicStatus}"/></p>
+                                <c:if test="${newTopicStatus != null}">
+                                    <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
+                                    ${newTopicStatus}</div>
+                                </c:if>
                                 
                                 <p>or</p>
                                     
@@ -280,20 +299,28 @@
                                         <option value="<c:out value="${topic.name}"/>" > <c:out value="${topic.name}"/></option>
                                     </c:forEach>
                                     </select>
-                                    <br>
-                                    <label for="imageFile">Pin Image to be Uploaded (.jpg or .png) : </label>
-                                    <input class="form-control" type="file" id="imageFile" name="imageFile" accept=".jpg, .png">
                                     
-                                    <p class="help-block">Pin image will be added into the topic selected.
-                                        <a href="./img/topic/WeddingImg1.png"</p>
+                                     <br>
+                                        <label for="imageFile">Pin Image to be Uploaded (.jpg or .png) : </label>
+                                        <input class="form-control" type="file" id="imageFile" name="imageFile" accept=".jpg, .png">
+                                    
+                                        <p class="help-block">Pin image will be added into the topic selected.</p>
+                                        <br>
+                                        <label for="description">Description (Optional) : </label>
+                                            <input class="form-control" type="text" id="form-description" name="description">
+
+                                        <label for="location">Location where pin is taken (Optional) : </label>
+                                            <input class="form-control" name="location" type="text" id="form-address">
                                 </div>
                                 <div>
                                     <input type="submit" class="btn btn-primary" value="Upload">
                                 </div>
                                 </form>
-                                <p><c:out value="${newContentStatus}"/></p>
-                                 
-                                <!-- TODO logic to create topics and add pins -->
+                                <c:if test="${newContentStatus != null}">
+                                    <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
+                                    ${newContentStatus}</div>
+                                </c:if>
+                               
                             </div>
                         </div>
                     </div>

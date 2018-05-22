@@ -25,7 +25,7 @@
 
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header"><div class="col-sm-12"><h2><strong>Pin Now 4 Wedding</h2>
+            <div class="navbar-header"><div class="col-sm-12"><h2><strong>DIY Wedding Planner</h2>
                     <h2>User Profile</h2></div></div>
             <div class="navbar-top-links">
                 
@@ -91,11 +91,9 @@
                                 <div class="input-group custom-search-form">
                                 <form method="POST" action="./searchUserandBoard" accept-charset="UTF-8" role="form" id="custom-search-form" class="custom-search-form">
                                 <input type="text" name="searchtext" class="form-control" placeholder="Search for User/Board...">
-                                <span class="input-group-btn">
-                                <input class="btn btn-default" type="submit" value="Search">
-                                    <i class="fa fa-search"></i>
-                                
-                                </span>
+                                <div class="input-group-btn">
+                                    <span class="pull-left"><input class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></span>
+                                </div>
                                 </form>
                                 </div></div>
                                 <div class="col-sm-6 col-md-6">
@@ -189,25 +187,11 @@
                                     <div class="panel-body">
                                         <div class="container-fluid">
                                             <div class="masonry">
+                                                 <c:forEach var="p" items="${selectedTopicPins1}" varStatus="iter">
                                                 <div class="item">
-                                                    <img src="img/WeddingImg9.jpg">
-                                                </div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg8.jpg"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg7.jpg"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg6.jpg"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg5.jpg"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg3.png"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg2.png"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg1.png"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg4.png"></div>
+                                                    <img src="${pageContext.request.contextPath}/images?pinName=${p.pinsPK.name}" style="width:100%"></div>
+                                                </c:forEach>
+                                               
                                                 </div>
                                                 </div>
                                     </div></div></div></c:if>
@@ -216,6 +200,15 @@
                                         <div class ="panel panel-default">
                                     <div class ="panel-heading"><i class="fa fa-hashtag"></i><c:out value="${selectedTopic2}"/></div>
                                     <div class="panel-body">
+                                        <div class="container-fluid">
+                                            <div class="masonry">
+                                                 <c:forEach var="p" items="${selectedTopicPins2}" varStatus="iter">
+                                                <div class="item">
+                                                    <img src="${pageContext.request.contextPath}/images?pinName=${p.pinsPK.name}" style="width:100%"></div>
+                                                </c:forEach>
+                                               
+                                            </div>
+                                        </div>
                                 
                                     </div>
                                         </div></div></c:if>
@@ -226,14 +219,10 @@
                                     <div class="panel-body">
                                         <div class="container-fluid">
                                             <div class="masonry">
+                                                 <c:forEach var="p" items="${selectedTopicPins3}" varStatus="iter">
                                                 <div class="item">
-                                                    <img src="img/WeddingImg9.jpg"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg8.jpg"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg7.jpg"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg6.jpg"></div>
+                                                    <img src="${pageContext.request.contextPath}/images?pinName=${p.pinsPK.name}" style="width:100%"></div>
+                                                </c:forEach>
                                             </div>
                                         </div></div></div>
                                     </div></c:if>
@@ -247,25 +236,11 @@
                                     <div class="panel-body">
                                         <div class="container-fluid">
                                             <div class="masonry">
+                                                 <c:forEach var="p" items="${selectedTopicPins4}" varStatus="iter">
                                                 <div class="item">
-                                                    <img src="img/WeddingImg9.jpg">
-                                                </div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg8.jpg"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg7.jpg"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg6.jpg"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg5.jpg"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg3.png"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg2.png"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg1.png"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg4.png"></div>
+                                                    <img src="${pageContext.request.contextPath}/images?pinName=${p.pinsPK.name}" style="width:100%"></div>
+                                                </c:forEach>
+                                                
                                                 </div>
                                                 </div>
                                     </div></div></div>
@@ -277,25 +252,10 @@
                                     <div class="panel-body">
                                         <div class="container-fluid">
                                             <div class="masonry">
+                                                <c:forEach var="p" items="${selectedTopicPins5}" varStatus="iter">
                                                 <div class="item">
-                                                    <img src="img/WeddingImg9.jpg">
-                                                </div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg8.jpg"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg7.jpg"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg6.jpg"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg5.jpg"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg3.png"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg2.png"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg1.png"></div>
-                                                <div class="item">
-                                                    <img src="img/WeddingImg4.png"></div>
+                                                    <img src="${pageContext.request.contextPath}/images?pinName=${p.pinsPK.name}" style="width:100%"></div>
+                                                </c:forEach>
                                                 </div>
                                                 </div>
                                     </div></div></div>

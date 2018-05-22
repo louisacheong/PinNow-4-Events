@@ -30,13 +30,22 @@ public class PinsFacade extends AbstractFacade<Pins> {
     public PinsFacade() {
         super(Pins.class);
     }
-    
     public List<Pins> findByUserEmail(String email){
         Query q=em.createNamedQuery("Pins.findByUserEmail");
         q.setParameter("userEmail", email);
         return q.getResultList();
     }
-    
+    public List<Pins> findByTopicsName(String topicsName){
+        Query q=em.createNamedQuery("Pins.findByTopicsName");
+        q.setParameter("topicsName", topicsName);
+        return q.getResultList();
+    }
+    public List<Pins> findByTopicsNameandUserEmail(String topicsName, String email){
+        Query q=em.createNamedQuery("Pins.findByTopicsNameandUserEmail");
+        q.setParameter("topicsName", topicsName);
+        q.setParameter("userEmail",email);
+        return q.getResultList();
+    }
     
     
 }

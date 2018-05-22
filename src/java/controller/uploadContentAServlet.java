@@ -7,46 +7,43 @@ package controller;
 
 import entity.Pins;
 import entity.PinsPK;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import session.PinsFacade;
-import session.TopicsFacade;
-import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import session.PinsFacade;
 
 /**
  *
  * @author louisacheong
  */
 @WebServlet(name = "uploadContentAServlet", urlPatterns = {"/uploadContentA"})
-@MultipartConfig(location="/tmp", fileSizeThreshold=1024*1024, maxFileSize=1024*1024*3) 
+@MultipartConfig(location="/tmp", maxFileSize=16177215) //File Size 16MB
 public class uploadContentAServlet extends HttpServlet {
-
     @EJB private PinsFacade PinsFacade;
-
+  
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String topicname = request.getParameter("topic");
+        String description = request.getParameter("description");
+        String location = request.getParameter("location");
         Part imageFile = request.getPart("imageFile");
-        String filename = imageFile.getSubmittedFileName();
+        String filename = removeExtension(imageFile.getSubmittedFileName());
         String path = "/Applications/NetBeans/glassfish-4.1.1/glassfish/domains/domain1/applications/";
 
         
@@ -55,12 +52,15 @@ public class uploadContentAServlet extends HttpServlet {
         File file= File.createTempFile(filename,".jpg", directory);
         String pinName = file.getName();
         System.out.println(pinName);
+    
         
         try(InputStream input = imageFile.getInputStream()){
             Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            
             PinsPK newpinkey = new PinsPK();
             newpinkey.setTopicsName(topicname);
             newpinkey.setName(pinName);
+            newpinkey.setUserEmail((String)session.getAttribute("user"));
             System.out.println(pinName);
             System.out.println(topicname);
             Pins newpinentry = new Pins();
@@ -68,8 +68,16 @@ public class uploadContentAServlet extends HttpServlet {
             Date current = new Date();
             newpinentry.setCreateTime(current);
             newpinentry.setLastPinned(current);
+            newpinentry.setLocation(location);
+            newpinentry.setDescription(description);
             PinsFacade.create(newpinentry);
             request.setAttribute("newContentStatus", "File is successfully uploaded!");
+            
+            //include info on pins 
+            List<Pins> pinlist = PinsFacade.findByUserEmail((String)session.getAttribute("user"));
+            session.setAttribute("pins", pinlist);
+            session.setAttribute("pin", newpinentry);
+            
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/admin.jsp");
             rd.include(request, response);
         } catch (Exception e){
@@ -80,6 +88,14 @@ public class uploadContentAServlet extends HttpServlet {
         }
         
    
+    }
+
+    private String removeExtension(String FileName) {
+        if(FileName.indexOf(".")>0){
+            return FileName.substring(0,FileName.lastIndexOf("."));
+        }else{
+            return FileName;
+        }
     }
 }
         

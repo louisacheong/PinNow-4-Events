@@ -11,7 +11,10 @@ import entity.TrackLoginPK;
 import entity.User;
 import entity.UserFollowsUser;
 import entity.Topics;
+import entity.Pinboards;
+import entity.Pins;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -24,6 +27,8 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.RequestDispatcher;
 import login_session.LoginInfo;
 import session.NotificationFacade;
+import session.PinboardsFacade;
+import session.PinsFacade;
 import session.TopicsFacade;
 import session.TrackLoginFacade;
 import session.UserFacade;
@@ -40,6 +45,8 @@ public class LoginServlet extends HttpServlet {
     @EJB private UserFollowsUserFacade UserFollowsUserFacade;
     @EJB private TopicsFacade TopicsFacade;
     @EJB private NotificationFacade NotificationFacade;
+    @EJB private PinsFacade PinsFacade;
+    @EJB private PinboardsFacade PinboardsFacade;
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -58,7 +65,7 @@ public class LoginServlet extends HttpServlet {
             //s_method == null means login method is via website, authentication done based on email and password provided
             User user = UserFacade.authenticate(email, password);
             
-            if (user != null && user.getIsAdmin()== false){
+            if (user != null && user.getIsAdmin()== false && user.getIsBlocked()==false){
                 //System.out.println(user);
                 String userName = user.getUsername();
                 LoginInfo.setLoginInfo(session, new LoginInfo(method,user));
@@ -107,9 +114,22 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("followedCount", followedCount);
                 List<Topics> createdTopics = TopicsFacade.findAll();
                 session.setAttribute("topic", createdTopics);
+                String topicsinstring = user.getSelectedtopics();
+                String[] selected_Topics = topicsinstring.split(",");
+                List<Pins> selPins = new ArrayList<Pins>();
+                //display trending pins based on selected topics during registration
+                for(int i=0; i< selected_Topics.length ; i++){
+                    session.setAttribute("selectedTopic"+ (i+1), selected_Topics[i]);
+                    System.out.println(selected_Topics[i]);
+                    List<Pins> selTopicPins = PinsFacade.findByTopicsName(selected_Topics[i]);
+                    for (Pins pins: selTopicPins){
+                    selPins.add(i,pins);
+                    }
+                    session.setAttribute("selPins", selPins);
+                }
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/welcome.jsp");
                 rd.forward(request, response);
-            } else if (user !=null && user.getIsAdmin()== true) {
+            } else if (user !=null && user.getIsAdmin()== true && user.getIsBlocked()== false) {
                 String userName = user.getUsername();
                 LoginInfo.setLoginInfo(session, new LoginInfo(method,user));
                 //Set session object with attributes user, method and loginDate
@@ -150,10 +170,27 @@ public class LoginServlet extends HttpServlet {
                 Integer followedCount = numFollowed.size();
                 session.setAttribute("followedCount", followedCount);
                 List<Topics> createdTopics = TopicsFacade.findAll();
+                Integer createdTopicsCount = createdTopics.size();
                 session.setAttribute("topic", createdTopics);
+                System.out.println(createdTopicsCount);
+                session.setAttribute("createdTopicsCount", createdTopicsCount);
+                List<Pins> usedPins = PinsFacade.findAll();
+                Integer usedPinsCount = usedPins.size();
+                Integer AvgPin = usedPinsCount/regUsersCount;
+                session.setAttribute("usedPinsCount",usedPinsCount);
+                session.setAttribute("AvgPin", AvgPin);
+                List<Pinboards> usedBoards = PinboardsFacade.findAll();
+                Integer usedBoardsCount = usedBoards.size();
+                Integer AvgBoard = usedBoardsCount/regUsersCount;
+                session.setAttribute("usedBoardsCount",usedBoardsCount);
+                session.setAttribute("AvgBoard", AvgBoard);
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/admin.jsp");
                 rd.forward(request, response);
-            } else {
+            } else if(user.getIsBlocked()==true){
+                request.setAttribute("error1", "You are blocked. Please contact your administrator.");
+                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+                rd.include(request, response);
+            }else {
                 request.setAttribute("error1", "Credentials provided are incorrect. Please make sure email and password are correct");
                 RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                 rd.include(request, response);
@@ -162,7 +199,7 @@ public class LoginServlet extends HttpServlet {
         } else if(method==LoginInfo.Method.GOOGLE) {
             //for GOOGLE or FACEBOOK login, only email can be authenticated
             User user = UserFacade.find(email);
-            if (user != null && user.getIsAdmin()== false){
+            if (user != null && user.getIsAdmin()== false && user.getIsBlocked()== false){
                 //System.out.println(user);
                 //System.out.println(s_method);
                 String userName = user.getUsername();
@@ -208,9 +245,23 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("followedCount", followedCount);
                 List<Topics> createdTopics = TopicsFacade.findAll();
                 session.setAttribute("topic", createdTopics);
+                String topicsinstring = user.getSelectedtopics();
+                String[] selected_Topics = topicsinstring.split(",");
+                List<Pins> selPins = new ArrayList<Pins>();
+                
+                //display trending pins based on selected topics during registration
+                for(int i=0; i< selected_Topics.length ; i++){
+                    session.setAttribute("selectedTopic"+ (i+1), selected_Topics[i]);
+                    System.out.println(selected_Topics[i]);
+                    List<Pins> selTopicPins = PinsFacade.findByTopicsName(selected_Topics[i]);
+                    for (Pins pins: selTopicPins){
+                    selPins.add(i,pins);
+                    }
+                    session.setAttribute("selPins", selPins);
+                }
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/welcome.jsp");
                 rd.forward(request, response);
-            } else if (user != null && user.getIsAdmin()==true){
+            } else if (user != null && user.getIsAdmin()==true && user.getIsBlocked()==false){
                 String userName = user.getUsername();
                 LoginInfo.setLoginInfo(session, new LoginInfo(method,user));
                 //Set session object with attributes user, method and loginDate
@@ -250,9 +301,23 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("followedCount", followedCount);
                 List<Topics> createdTopics = TopicsFacade.findAll();
                 session.setAttribute("topic", createdTopics);
+                List<Pins> usedPins = PinsFacade.findAll();
+                Integer usedPinsCount = usedPins.size();
+                Integer AvgPin = usedPinsCount/regUsersCount;
+                session.setAttribute("usedPinsCount",usedPinsCount);
+                session.setAttribute("AvgPin", AvgPin);
+                List<Pinboards> usedBoards = PinboardsFacade.findAll();
+                Integer usedBoardsCount = usedBoards.size();
+                Integer AvgBoard = usedBoardsCount/regUsersCount;
+                session.setAttribute("usedBoardsCount",usedBoardsCount);
+                session.setAttribute("AvgBoard", AvgBoard);
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/admin.jsp");
                 rd.forward(request, response);
-            } else {
+            } else if(user.getIsBlocked()==true){
+                request.setAttribute("error1", "You are blocked. Please contact your administrator.");
+                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+                rd.include(request, response);
+            }else {
                 request.setAttribute("error1", "Credentials provided are incorrect. Please try other means of authentication");
                 RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                 rd.include(request, response);

@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `PinNow`.`user` (
   `country` VARCHAR(45) NULL,
   `selectedtopics` VARCHAR(255) NOT NULL,
   `is_admin` BOOLEAN NOT NULL DEFAULT false,
+  `is_blocked` BOOLEAN NOT NULL DEFAULT false,
   `last_login` TIMESTAMP NULL,
   `login_counter` INT NULL,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC),
@@ -53,8 +54,8 @@ CREATE TABLE IF NOT EXISTS `PinNow`.`user_follows_user` (
   CONSTRAINT `fk_user_follows_user_user`
     FOREIGN KEY (`follower`)
     REFERENCES `PinNow`.`user` (`email`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_user_follows_user_user1`
     FOREIGN KEY (`personBeingFollowed`)
     REFERENCES `PinNow`.`user` (`email`)
@@ -87,7 +88,6 @@ DROP TABLE IF EXISTS `PinNow`.`topics` ;
 CREATE TABLE IF NOT EXISTS `PinNow`.`topics` (
   `name` VARCHAR(255) NOT NULL,
   `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`name`));
 
 /*COMMENT = 'maintains event categories that can only be edited by administrator';*/

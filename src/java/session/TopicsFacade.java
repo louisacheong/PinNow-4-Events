@@ -9,6 +9,7 @@ import entity.Topics;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +29,9 @@ public class TopicsFacade extends AbstractFacade<Topics> {
     public TopicsFacade() {
         super(Topics.class);
     }
-    
+    public Topics findByName(String topic){
+        Query q = em.createNamedQuery("Topics.findByName");
+        q.setParameter("name", topic);
+        return (Topics)q.getSingleResult();
+    }
 }

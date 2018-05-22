@@ -35,8 +35,7 @@ public class TrackLoginFacade extends AbstractFacade<TrackLogin> {
     public TrackLoginFacade() {
         super(TrackLogin.class);
     }
-    
-    public List<TrackLogin> LoginsPast2Weeks(String email){
+     public List<TrackLogin> LoginsPast2Weeks(String email){
         Calendar calendar = new GregorianCalendar();
         calendar.setTimeZone(TimeZone.getTimeZone("UTC-1")); //Munich Time
         calendar.setTime(new Date());
@@ -70,4 +69,5 @@ public class TrackLoginFacade extends AbstractFacade<TrackLogin> {
         return q.getResultList();
     
     }
+
 }

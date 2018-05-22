@@ -6,7 +6,6 @@
 package session;
 
 import entity.Pinboards;
-import entity.Pins;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -31,8 +30,7 @@ public class PinboardsFacade extends AbstractFacade<Pinboards> {
     public PinboardsFacade() {
         super(Pinboards.class);
     }
-    
-     public List<Pinboards> findByUserEmail(String email){
+    public List<Pinboards> findByUserEmail(String email){
         Query q=em.createNamedQuery("Pinboards.findByUserEmail");
         q.setParameter("userEmail", email);
         return q.getResultList();
@@ -55,6 +53,6 @@ public class PinboardsFacade extends AbstractFacade<Pinboards> {
         Query q=em.createNamedQuery("Pinboards.findAll");
         return q.getResultList();
     }
-    
-    
+
+
 }

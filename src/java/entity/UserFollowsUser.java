@@ -10,6 +10,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,11 +29,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "UserFollowsUser.findAll", query = "SELECT u FROM UserFollowsUser u")
     , @NamedQuery(name = "UserFollowsUser.findByFollower", query = "SELECT u FROM UserFollowsUser u WHERE u.userFollowsUserPK.follower = :follower")
     , @NamedQuery(name = "UserFollowsUser.findByPersonBeingFollowed", query = "SELECT u FROM UserFollowsUser u WHERE u.userFollowsUserPK.personBeingFollowed = :personBeingFollowed")
-    , @NamedQuery(name = "UserFollowsUser.findByPK", query = "SELECT u FROM UserFollowsUser u WHERE u.userFollowsUserPK.follower = :follower AND u.userFollowsUserPK.personBeingFollowed = :personBeingFollowed")
     , @NamedQuery(name = "UserFollowsUser.findByIsPermitted", query = "SELECT u FROM UserFollowsUser u WHERE u.isPermitted = :isPermitted")
     , @NamedQuery(name = "UserFollowsUser.findByFollowerandisPermitted", query = "SELECT u FROM UserFollowsUser u WHERE u.userFollowsUserPK.follower = :follower AND u.isPermitted = :isPermitted")
     , @NamedQuery(name = "UserFollowsUser.findByPersonBeingFollowedandisPermitted", query = "SELECT u FROM UserFollowsUser u WHERE u.userFollowsUserPK.personBeingFollowed = :personBeingFollowed AND u.isPermitted = :isPermitted")
-
 })
 public class UserFollowsUser implements Serializable {
 
@@ -42,6 +42,12 @@ public class UserFollowsUser implements Serializable {
     @NotNull
     @Column(name = "isPermitted")
     private boolean isPermitted;
+    @JoinColumn(name = "follower", referencedColumnName = "email", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private User user;
+    @JoinColumn(name = "personBeingFollowed", referencedColumnName = "email", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private User user1;
 
     public UserFollowsUser() {
     }
@@ -73,6 +79,22 @@ public class UserFollowsUser implements Serializable {
 
     public void setIsPermitted(boolean isPermitted) {
         this.isPermitted = isPermitted;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser1() {
+        return user1;
+    }
+
+    public void setUser1(User user1) {
+        this.user1 = user1;
     }
 
     @Override

@@ -10,6 +10,9 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -38,6 +41,14 @@ public class UserFollowsPinboard implements Serializable {
     @NotNull
     @Column(name = "isPermitted")
     private boolean isPermitted;
+    @JoinColumns({
+        @JoinColumn(name = "pinboards_name", referencedColumnName = "name", insertable = false, updatable = false)
+        , @JoinColumn(name = "pinboards_user_email", referencedColumnName = "user_email", insertable = false, updatable = false)})
+    @ManyToOne(optional = false)
+    private Pinboards pinboards;
+    @JoinColumn(name = "user_email", referencedColumnName = "email", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private User user;
 
     public UserFollowsPinboard() {
     }
@@ -69,6 +80,22 @@ public class UserFollowsPinboard implements Serializable {
 
     public void setIsPermitted(boolean isPermitted) {
         this.isPermitted = isPermitted;
+    }
+
+    public Pinboards getPinboards() {
+        return pinboards;
+    }
+
+    public void setPinboards(Pinboards pinboards) {
+        this.pinboards = pinboards;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

@@ -31,13 +31,10 @@
             <div class="col-sm-6 col-md-6"> 
                 <br>
                 <p></p>
-                <form class="navbar-form navbar-left" action="./searchtrends">
-                <!-- TODO: activate search function-->
+                <form method="POST" class="navbar-form navbar-left" action="./searchTopics" accept-charset="UTF-8" role="form" id="custom-search-form">
+                    <input type="search" name="searchtext" class="form-control pull-left" style="width:85%" id="search" placeholder="Search..." />
                 <div class="input-group-btn">
-                    <input type="search" class="form-control pull-left" style="width:85%" id="search" placeholder="Search..." />
-                   
-                        <span class="pull-left"><a class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></a></span>
-                    
+                    <span class="pull-left"><input class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></span>
                 </div>
                 </form>
                     
@@ -57,7 +54,7 @@
                                 <p>
                                     <a href="${pageContext.request.contextPath}/allowFollowUser?follower=${f.follower}" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ok-circle"> Allow </span></a>
                                     <a href="${pageContext.request.contextPath}/blockFollowUser?follower=${f.follower}" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-ban-circle"> Block</span></a>
-                                    <span class="pull-right text-muted small">12 minutes ago</span></p>
+                                    
                             </div>
                         </li>
                         <li class="divider"></li>
@@ -87,58 +84,39 @@
                     </ul>
                         
             </div></div>
-                        
+<c:if test="${searcherror1 != null}">
+    <div class="bg-danger" style="padding: 15px; border-radius: 4px; color:black; max-width: 500px; margin: 0px auto;">
+    ${searcherror1}</div>
+</c:if>
+<c:choose>
+<c:when test = "${foundTopics!=null}">
+    <div class="container-fluid">
+        <div class="masonry">
+            <c:forEach var="topic" items="${foundTopics}" varStatus="iter">
+            <c:forEach var="p" items="${topic.pinsCollection}" varStatus="iter">
+                <div class="item">
+                <img src="${pageContext.request.contextPath}/images?pinName=${p.pinsPK.name}" class="img-rounded img-responsive" height="250px" style="width:100%">
+                <c:if test="${p.description!=null}"><div class="text-box"><c:out value="${p.description}"/></div></c:if>
+                </div>
+            </c:forEach>
+            </c:forEach>
+        </div>
+    </div>
+</c:when>
+<c:otherwise>                        
 <div class="container-fluid">                       
 <div class="masonry">
-        <div class="item">
-                <img src="img/WeddingImg5.jpg"></a></div>
-        <div class="item">
-            <div class="text-box">The ring that binds.. </div>
-        </div>
-        <div class="item">
-                <img src="http://media-cache-ec0.pinimg.com/736x/c3/10/22/c3102281f88237e7a2515099d2e6651f.jpg">
-        </div>
-        <div class="item">
-                <img src="http://media-cache-ec0.pinimg.com/736x/0f/d0/84/0fd0847f7b48e5f16d896f62baa31b97.jpg">
-        </div>
-        <div class="item">
-            <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=+&amp;q=taj+mahal&amp;ie=UTF8&amp;hq=&amp;hnear=&amp;ll=27.175015,78.042155&amp;spn=0.006295,0.006295&amp;t=m&amp;output=embed"></iframe>
-        </div>
-        <div class="item">
-            <div class="text-box"><a href="https://twitter.com/w3bits_">I tweet sometimes.</a></div>
-        </div>
-        <div class="item">
-                <img src="http://media-cache-ak0.pinimg.com/736x/2e/7f/db/2e7fdb7ed765973407fed0b0141bb126.jpg">
-            <div class="text-box">
-                <h2>Thirst Quenchers</h2></div>
-        </div>
-        <div class="item">
-            <img src="img/WeddingImg4.png">
-            <div class="text-box">Lorem ipsum dolor sit amet, dicta dolore adipisci hic ipsam velit deleniti possimus cumque accusantium rerum quibusdam.</div>
-        </div>
-        <div class="item">
-            <img src="img/WeddingImg3.png">
-            <div class="text-box">Text-only masonry block.</div>
-        </div>
-        <div class="item">
-            <iframe width="640" height="390" src="http://www.youtube.com/embed/cwGq-uy0bhI" frameborder="0" allowfullscreen=""></iframe>
-        </div>
-        <div class="item">
-            <div class="text-box"><a href="https://plus.google.com/+w3Bits">Circle me on Google+</a></div>
-        </div>
-        <div class="item">
-            <iframe src="http://player.vimeo.com/video/91605331" width="500" height="281" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
-        </div>
-        <div class="item">
-            <img src="img/WeddingImg2.png">
-            <div class="text-box">Text-only masonry block.</div>
-        </div>
-        <div class="item">
-            <img src="img/WeddingImg1.png">
-            <div class="text-box">Text-only masonry block.</div>
-        </div>
-
-    </div></div>
+    <c:forEach var="p" items="${selPins}" varStatus="iter">
+    <div class="item">
+        <img src="${pageContext.request.contextPath}/images?pinName=${p.pinsPK.name}" class="img-rounded img-responsive" height="250px" style="width:100%">
+        <c:if test="${p.description!=null}"><div class="text-box"><c:out value="${p.description}"/></div></c:if>
+    </div>
+    </c:forEach>
+       
+</div></div>
+</c:otherwise>
+</c:choose>
+</div></div>
    
 
  <script

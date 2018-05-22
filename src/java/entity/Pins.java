@@ -38,7 +38,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Pins.findByDescription", query = "SELECT p FROM Pins p WHERE p.description = :description")
     , @NamedQuery(name = "Pins.findByTopicsName", query = "SELECT p FROM Pins p WHERE p.pinsPK.topicsName = :topicsName")
     , @NamedQuery(name = "Pins.findByLocation", query = "SELECT p FROM Pins p WHERE p.location = :location")
-    , @NamedQuery(name = "Pins.findByUserEmail", query = "SELECT p FROM Pins p WHERE p.pinsPK.userEmail = :userEmail")})
+    , @NamedQuery(name = "Pins.findByUserEmail", query = "SELECT p FROM Pins p WHERE p.pinsPK.userEmail = :userEmail")
+    , @NamedQuery(name = "Pins.findByTopicsNameandUserEmail", query = "SELECT p FROM Pins p WHERE p.pinsPK.topicsName = :topicsName AND p.pinsPK.userEmail = :userEmail")
+})
 public class Pins implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -68,6 +70,9 @@ public class Pins implements Serializable {
     @JoinColumn(name = "topics_name", referencedColumnName = "name", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Topics topics;
+    @JoinColumn(name = "user_email", referencedColumnName = "email", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private User user;
 
     public Pins() {
     }
@@ -140,6 +145,14 @@ public class Pins implements Serializable {
 
     public void setTopics(Topics topics) {
         this.topics = topics;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

@@ -6,11 +6,11 @@
 package session;
 
 import entity.User;
+import java.util.List;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,14 +34,19 @@ public class UserFacade extends AbstractFacade<User> {
     public UserFacade() {
         super(User.class);
     }
-    
     public User findByEmailAndPassword(String email, String password){
         Query q = em.createNamedQuery("User.findByEmailAndPassword");
         q.setParameter("email",email);
         q.setParameter("password",password);
         return (User)q.getSingleResult();
     }
-
+    
+    public User findByEmail(String email){
+        Query q = em.createNamedQuery("User.findByEmail");
+        q.setParameter("email",email);
+        return (User)q.getSingleResult();
+    }
+    
     public User findByEmailAndUsername(String email, String username){
         Query q = em.createNamedQuery("User.findByEmailAndUsername");
         q.setParameter("username", username);
@@ -99,7 +104,6 @@ public class UserFacade extends AbstractFacade<User> {
             throw new RuntimeException("SHA-256 not supported");
         }
     }
-
 
     
 }

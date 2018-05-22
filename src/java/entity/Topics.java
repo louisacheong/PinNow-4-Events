@@ -13,6 +13,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,8 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Topics.findAll", query = "SELECT t FROM Topics t")
     , @NamedQuery(name = "Topics.findByName", query = "SELECT t FROM Topics t WHERE t.name = :name")
-    , @NamedQuery(name = "Topics.findByCreateTime", query = "SELECT t FROM Topics t WHERE t.createTime = :createTime")
-    , @NamedQuery(name = "Topics.findByLastUpdated", query = "SELECT t FROM Topics t WHERE t.lastUpdated = :lastUpdated")})
+    , @NamedQuery(name = "Topics.findByCreateTime", query = "SELECT t FROM Topics t WHERE t.createTime = :createTime")})
 public class Topics implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,11 +52,11 @@ public class Topics implements Serializable {
     @Column(name = "create_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "last_updated")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdated;
+    @JoinTable(name = "admin_create_or_update_topics", joinColumns = {
+        @JoinColumn(name = "topics_name", referencedColumnName = "name")}, inverseJoinColumns = {
+        @JoinColumn(name = "user_email", referencedColumnName = "email")})
+    @ManyToMany
+    private Collection<User> userCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "topics")
     private Collection<Pins> pinsCollection;
 
@@ -65,10 +67,9 @@ public class Topics implements Serializable {
         this.name = name;
     }
 
-    public Topics(String name, Date createTime, Date lastUpdated) {
+    public Topics(String name, Date createTime) {
         this.name = name;
         this.createTime = createTime;
-        this.lastUpdated = lastUpdated;
     }
 
     public String getName() {
@@ -87,12 +88,13 @@ public class Topics implements Serializable {
         this.createTime = createTime;
     }
 
-    public Date getLastUpdated() {
-        return lastUpdated;
+    @XmlTransient
+    public Collection<User> getUserCollection() {
+        return userCollection;
     }
 
-    public void setLastUpdated(Date lastUpdated) {
-        this.lastUpdated = lastUpdated;
+    public void setUserCollection(Collection<User> userCollection) {
+        this.userCollection = userCollection;
     }
 
     @XmlTransient

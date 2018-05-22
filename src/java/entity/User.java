@@ -6,19 +6,24 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -38,10 +43,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "User.findByCountry", query = "SELECT u FROM User u WHERE u.country = :country")
     , @NamedQuery(name = "User.findBySelectedtopics", query = "SELECT u FROM User u WHERE u.selectedtopics = :selectedtopics")
     , @NamedQuery(name = "User.findByIsAdmin", query = "SELECT u FROM User u WHERE u.isAdmin = :isAdmin")
+    , @NamedQuery(name = "User.findByIsBlocked", query = "SELECT u FROM User u WHERE u.isBlocked = :isBlocked")
     , @NamedQuery(name = "User.findByLastLogin", query = "SELECT u FROM User u WHERE u.lastLogin = :lastLogin")
-    , @NamedQuery(name = "User.findByLoginCounter", query = "SELECT u FROM User u WHERE u.loginCounter = :loginCounter")
-    , @NamedQuery(name = "User.findByEmailAndUsername", query = "SELECT u FROM User u WHERE u.email = :email AND u.username = :username")
-})
+    , @NamedQuery(name = "User.findByLoginCounter", query = "SELECT u FROM User u WHERE u.loginCounter = :loginCounter")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -88,11 +92,29 @@ public class User implements Serializable {
     @NotNull
     @Column(name = "is_admin")
     private boolean isAdmin;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "is_blocked")
+    private boolean isBlocked;
     @Column(name = "last_login")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
     @Column(name = "login_counter")
     private Integer loginCounter;
+    @ManyToMany(mappedBy = "userCollection")
+    private Collection<Topics> topicsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<TrackLogin> trackLoginCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<UserFollowsPinboard> userFollowsPinboardCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<Pins> pinsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<Pinboards> pinboardsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<UserFollowsUser> userFollowsUserCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
+    private Collection<UserFollowsUser> userFollowsUserCollection1;
 
     public User() {
     }
@@ -101,7 +123,7 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public User(String email, String username, String password, String firstname, String lastname, boolean gender, String selectedtopics, boolean isAdmin) {
+    public User(String email, String username, String password, String firstname, String lastname, boolean gender, String selectedtopics, boolean isAdmin, boolean isBlocked) {
         this.email = email;
         this.username = username;
         this.password = password;
@@ -110,6 +132,7 @@ public class User implements Serializable {
         this.gender = gender;
         this.selectedtopics = selectedtopics;
         this.isAdmin = isAdmin;
+        this.isBlocked = isBlocked;
     }
 
     public String getEmail() {
@@ -184,6 +207,14 @@ public class User implements Serializable {
         this.isAdmin = isAdmin;
     }
 
+    public boolean getIsBlocked() {
+        return isBlocked;
+    }
+
+    public void setIsBlocked(boolean isBlocked) {
+        this.isBlocked = isBlocked;
+    }
+
     public Date getLastLogin() {
         return lastLogin;
     }
@@ -198,6 +229,69 @@ public class User implements Serializable {
 
     public void setLoginCounter(Integer loginCounter) {
         this.loginCounter = loginCounter;
+    }
+
+    @XmlTransient
+    public Collection<Topics> getTopicsCollection() {
+        return topicsCollection;
+    }
+
+    public void setTopicsCollection(Collection<Topics> topicsCollection) {
+        this.topicsCollection = topicsCollection;
+    }
+
+    @XmlTransient
+    public Collection<TrackLogin> getTrackLoginCollection() {
+        return trackLoginCollection;
+    }
+
+    public void setTrackLoginCollection(Collection<TrackLogin> trackLoginCollection) {
+        this.trackLoginCollection = trackLoginCollection;
+    }
+
+    @XmlTransient
+    public Collection<UserFollowsPinboard> getUserFollowsPinboardCollection() {
+        return userFollowsPinboardCollection;
+    }
+
+    public void setUserFollowsPinboardCollection(Collection<UserFollowsPinboard> userFollowsPinboardCollection) {
+        this.userFollowsPinboardCollection = userFollowsPinboardCollection;
+    }
+
+    @XmlTransient
+    public Collection<Pins> getPinsCollection() {
+        return pinsCollection;
+    }
+
+    public void setPinsCollection(Collection<Pins> pinsCollection) {
+        this.pinsCollection = pinsCollection;
+    }
+
+    @XmlTransient
+    public Collection<Pinboards> getPinboardsCollection() {
+        return pinboardsCollection;
+    }
+
+    public void setPinboardsCollection(Collection<Pinboards> pinboardsCollection) {
+        this.pinboardsCollection = pinboardsCollection;
+    }
+
+    @XmlTransient
+    public Collection<UserFollowsUser> getUserFollowsUserCollection() {
+        return userFollowsUserCollection;
+    }
+
+    public void setUserFollowsUserCollection(Collection<UserFollowsUser> userFollowsUserCollection) {
+        this.userFollowsUserCollection = userFollowsUserCollection;
+    }
+
+    @XmlTransient
+    public Collection<UserFollowsUser> getUserFollowsUserCollection1() {
+        return userFollowsUserCollection1;
+    }
+
+    public void setUserFollowsUserCollection1(Collection<UserFollowsUser> userFollowsUserCollection1) {
+        this.userFollowsUserCollection1 = userFollowsUserCollection1;
     }
 
     @Override

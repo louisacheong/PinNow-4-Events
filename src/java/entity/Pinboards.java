@@ -9,9 +9,12 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -35,9 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Pinboards.findByCreateTime", query = "SELECT p FROM Pinboards p WHERE p.createTime = :createTime")
     , @NamedQuery(name = "Pinboards.findByLastUpdated", query = "SELECT p FROM Pinboards p WHERE p.lastUpdated = :lastUpdated")
     , @NamedQuery(name = "Pinboards.findByIsPrivate", query = "SELECT p FROM Pinboards p WHERE p.isPrivate = :isPrivate")
-    , @NamedQuery(name = "Pinboards.findByUserEmail", query = "SELECT p FROM Pinboards p WHERE p.pinboardsPK.userEmail = :userEmail")
-    , @NamedQuery(name = "Pinboards.findByUserEmailandName", query = "SELECT p FROM Pinboards p WHERE p.pinboardsPK.userEmail = :userEmail AND p.pinboardsPK.name = :name")
-})
+    , @NamedQuery(name = "Pinboards.findByUserEmail", query = "SELECT p FROM Pinboards p WHERE p.pinboardsPK.userEmail = :userEmail")})
 public class Pinboards implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,8 +58,13 @@ public class Pinboards implements Serializable {
     @NotNull
     @Column(name = "isPrivate")
     private boolean isPrivate;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pinboards")
+    private Collection<UserFollowsPinboard> userFollowsPinboardCollection;
     @OneToMany(mappedBy = "pinboards")
     private Collection<Pins> pinsCollection;
+    @JoinColumn(name = "user_email", referencedColumnName = "email", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private User user;
 
     public Pinboards() {
     }
@@ -111,12 +117,29 @@ public class Pinboards implements Serializable {
     }
 
     @XmlTransient
+    public Collection<UserFollowsPinboard> getUserFollowsPinboardCollection() {
+        return userFollowsPinboardCollection;
+    }
+
+    public void setUserFollowsPinboardCollection(Collection<UserFollowsPinboard> userFollowsPinboardCollection) {
+        this.userFollowsPinboardCollection = userFollowsPinboardCollection;
+    }
+
+    @XmlTransient
     public Collection<Pins> getPinsCollection() {
         return pinsCollection;
     }
 
     public void setPinsCollection(Collection<Pins> pinsCollection) {
         this.pinsCollection = pinsCollection;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

@@ -30,7 +30,6 @@ public class UserFollowsUserFacade extends AbstractFacade<UserFollowsUser> {
     public UserFollowsUserFacade() {
         super(UserFollowsUser.class);
     }
-    
     public UserFollowsUser findByPK(String follower, String personBeingFollowed) {
         Query q = em.createNamedQuery("UserFollowsUser.findByPK");
         q.setParameter("follower", follower);
@@ -63,4 +62,5 @@ public class UserFollowsUserFacade extends AbstractFacade<UserFollowsUser> {
         q.setParameter("isPermitted", state);
         return q.getResultList();
     }
+
 }

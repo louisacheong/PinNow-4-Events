@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -40,6 +42,9 @@ public class TrackLogin implements Serializable {
     @NotNull
     @Column(name = "still_logged_in")
     private boolean stillLoggedIn;
+    @JoinColumn(name = "email", referencedColumnName = "email", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private User user;
 
     public TrackLogin() {
     }
@@ -71,6 +76,14 @@ public class TrackLogin implements Serializable {
 
     public void setStillLoggedIn(boolean stillLoggedIn) {
         this.stillLoggedIn = stillLoggedIn;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
